@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rvdat</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9003</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,8 @@
 <span>  outdir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  time_corrected <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  folder <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  folder <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  filter <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -86,6 +87,12 @@ current working directory.</p></dd>
 
 <dt>folder</dt>
 <dd><p>logical, defaults to FALSE. Convert VDAT to a folder of CSVs?</p></dd>
+
+
+<dt>filter</dt>
+<dd><p>character, defaults to NULL and is currently ignored with a
+warning. When implemented, filtering via vdat.exe will only be available for
+HR3 receivers.</p></dd>
 
 </dl></div>
 
