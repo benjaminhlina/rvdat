@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rvdat</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +40,12 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3.0" id="rvdat-030">rvdat 0.3.0<a class="anchor" aria-label="anchor" href="#rvdat-030"></a></h2>
+<ul><li>
+<strong>BREAKING CHANGE</strong>: <code>rvdat</code> now looks for an environmental variable of <code>RVDAT_EXE</code> rather than <code>VDAT_EXE</code>. If you had this set between sessions, <a href="https://rvdat.obrien.page/articles/how-to-use-rvdat.html#getting-started" class="external-link">you will need to update your <code>.Renviron</code> accordingly</a>.</li>
+<li>Experimental support for Linux and Mac systems by wrapping calls to <code>vdat.exe</code> in a call to <a href="https://www.winehq.org/" class="external-link">Wine</a>. Needs Wine and Winetricks installed, (~1.75 GB total!) so more of a bandage rather than an actual implementation.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.0" id="rvdat-020">rvdat 0.2.0<a class="anchor" aria-label="anchor" href="#rvdat-020"></a></h2>
 <ul><li>
 <a href="https://rvdat.obrien.page/reference/vdat_here.html" class="external-link">vdat_here</a> now looks for the vdat executable in the OS-standard installation locations.</li>
@@ -47,7 +53,8 @@
 </li>
 <li>Update to README as Fathom now installs in <code>.../Innovasea/Fathom Connect</code> instead of <code>.../Innovasea/Fathom</code>.</li>
 </ul></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

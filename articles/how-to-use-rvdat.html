@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rvdat</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,7 +70,7 @@
     
 <p>This vignette is a working draft. There will be lots of changes as
 <code>rvdat</code> gets fleshed out, so please check back often!</p>
-<p>The most recent changes were made on 2024-11-15.</p>
+<p>The most recent changes were made on 2025-07-24.</p>
 <div class="section level2">
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
@@ -82,12 +82,19 @@ within an installed version of <a href="https://support.fishtracking.innovasea.c
 Connect</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vdat_here.html">vdat_here</a></span><span class="op">(</span><span class="st">"c:/program files/innovasea/fathom connect/vdat.exe"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; ℹ vdat is located at c:/program files/innovasea/fathom connect/vdat.exe</span></span></code></pre></div>
+<span><span class="co">#&gt; ℹ VDAT detected in Wine installation.</span></span>
+<span><span class="co">#&gt; Warning: vdat.exe not found at c:/program</span></span>
+<span><span class="co">#&gt; files/innovasea/fathom connect/vdat.exe,</span></span>
+<span><span class="co">#&gt; but at ~/.wine/drive_c/Program</span></span>
+<span><span class="co">#&gt; Files/Innovasea/Fathom Connect/vdat.exe.</span></span>
+<span><span class="co">#&gt; [1] "~/.wine/drive_c/Program Files/Innovasea/Fathom Connect/vdat.exe"</span></span></code></pre></div>
 <p>If you don’t want to do this every time you re-open R, you can add
-<code>VDAT_EXE="PATH_TO_VDAT.EXE"</code> to your <code>.Renviron</code>
-file. <code>rvdat</code> will automatically look for it there when you
-restart R. You can do this manually, but I find that the easiest way to
-edit <code>.Renviron</code> is using <a href="https://usethis.r-lib.org/reference/edit.html" class="external-link"><code>usethis::edit_r_environ()</code></a>.</p>
+<code>RVDAT_EXE="PATH_TO_VDAT.EXE"</code> to your <code>.Renviron</code>
+file. If you’re on Linux or MacOS, you can also add the location of your
+Wine installation as <code>RVDAT_WINE_EXE="/path/to/Wine"</code>.
+<code>rvdat</code> will automatically look for these in your
+<code>.Renviron</code> when you restart R. You can do this manually, but
+I find that the easiest way to edit <code>.Renviron</code> is using <a href="https://usethis.r-lib.org/reference/edit.html" class="external-link"><code>usethis::edit_r_environ()</code></a>.</p>
 <p>Next, let’s download a sample VRL file from the <code>glatos</code>
 package using <code><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">utils::download.file</a></code>. I’ll be keeping
 everything in a temporary directory just to keep tidy.</p>
@@ -126,76 +133,19 @@ you’d like to keep it around.</p>
 <code class="sourceCode R"><span><span class="va">inspect_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vdat_inspect.html">vdat_inspect</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"VR2AR_546310_20190613_1.vrl"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; ==============================================================================</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt;                                      VRL                                      </span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; ==============================================================================</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; File:      VR2AR_546310_20190613_1.vrl</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Original:  VR2AR_546310_20190613_1.vrl</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Container: VR2AR VRL file (com.vemco.file.vrl.0207.ff02.ff02/5.0.1)</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Created:   2019-06-13T13:30:54</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Data UUID: ffee6ee7-450a-db42-b54c-334b672fddf5</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Rx Model:  VR2AR-69</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Rx Serial: 546310</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; </span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; ==============================================================================</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt;                                     Device                                    </span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; ==============================================================================</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Decoding Map:      MAP-113</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Blanking Interval: 260 ms</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; </span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; </span></span>
-<span></span>
-<span></span>
+<span><span class="co">#&gt; ℹ Using Wine mode: EXPERIMENTAL!</span></span>
+<span><span class="co">#&gt; Error in `error_file_location()` at rvdat/R/vdat_inspect.R:18:5:</span></span>
+<span><span class="co">#&gt; ✖ Call to VDAT failed with error:</span></span>
+<span><span class="co">#&gt;   00b8:err:environ:init_peb starting</span></span>
+<span><span class="co">#&gt;   L"C:\\windows\\Microsoft.NET\\Framework\\v4.0.30319\\mscorsvw.exe"</span></span>
+<span><span class="co">#&gt;   in experimental wow64 mode !! ERROR:</span></span>
+<span><span class="co">#&gt;   Invalid Argument: file is required</span></span>
+<span><span class="co">#&gt; ℹ Is the location of</span></span>
+<span><span class="co">#&gt;   /tmp/RtmpZfiiUk/vignette/VR2AR_546310_20190613_1.vrl</span></span>
+<span><span class="co">#&gt;   correct?</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">inspect_df</span><span class="op">)</span></span>
-<span><span class="co">#&gt;    variable                                                    value</span></span>
-<span><span class="co">#&gt; 1      File                              VR2AR_546310_20190613_1.vrl</span></span>
-<span><span class="co">#&gt; 2  Original                              VR2AR_546310_20190613_1.vrl</span></span>
-<span><span class="co">#&gt; 3 Container VR2AR VRL file (com.vemco.file.vrl.0207.ff02.ff02/5.0.1)</span></span>
-<span><span class="co">#&gt; 4   Created                                      2019-06-13T13:30:54</span></span>
-<span><span class="co">#&gt; 5 Data UUID                     ffee6ee7-450a-db42-b54c-334b672fddf5</span></span>
-<span><span class="co">#&gt; 6  Rx Model                                                 VR2AR-69</span></span>
-<span><span class="co">#&gt;   section</span></span>
-<span><span class="co">#&gt; 1     VRL</span></span>
-<span><span class="co">#&gt; 2     VRL</span></span>
-<span><span class="co">#&gt; 3     VRL</span></span>
-<span><span class="co">#&gt; 4     VRL</span></span>
-<span><span class="co">#&gt; 5     VRL</span></span>
-<span><span class="co">#&gt; 6     VRL</span></span></code></pre></div>
+<span><span class="co">#&gt; Error: object 'inspect_df' not found</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="converting-vdat-file-to-a-csv">Converting VDAT file to a CSV<a class="anchor" aria-label="anchor" href="#converting-vdat-file-to-a-csv"></a>
@@ -203,163 +153,41 @@ you’d like to keep it around.</p>
 <p>Now that we have a VRL to play with and know something about it,
 let’s convert it to a csv. It’s pretty quick with
 <code>vdat_to_csv</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">vdat_to_csv</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">file.path</span>(td, <span class="st">"VR2AR_546310_20190613_1.vrl"</span>),</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="at">outdir =</span> td</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>)</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; 0.0% - Converting File</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="fl">7.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="fl">9.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="fl">10.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="fl">12.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="fl">13.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="fl">15.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="fl">16.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="fl">18.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="fl">19.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="fl">21.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="fl">22.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="fl">24.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="fl">26.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="fl">27.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="fl">29.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="fl">30.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="fl">32.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="fl">33.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="fl">35.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="fl">36.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="fl">38.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="fl">39.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="fl">41.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a><span class="fl">42.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a><span class="fl">44.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a><span class="fl">45.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a><span class="fl">47.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a><span class="fl">48.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a><span class="fl">50.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a><span class="fl">51.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a><span class="fl">53.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a><span class="fl">55.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a><span class="fl">56.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-39"><a href="#cb5-39" tabindex="-1"></a><span class="fl">58.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-40"><a href="#cb5-40" tabindex="-1"></a><span class="fl">59.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-41"><a href="#cb5-41" tabindex="-1"></a><span class="fl">61.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-42"><a href="#cb5-42" tabindex="-1"></a><span class="fl">62.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-43"><a href="#cb5-43" tabindex="-1"></a><span class="fl">64.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-44"><a href="#cb5-44" tabindex="-1"></a><span class="fl">65.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-45"><a href="#cb5-45" tabindex="-1"></a><span class="fl">67.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-46"><a href="#cb5-46" tabindex="-1"></a><span class="fl">68.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-47"><a href="#cb5-47" tabindex="-1"></a><span class="fl">70.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-48"><a href="#cb5-48" tabindex="-1"></a><span class="fl">71.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-49"><a href="#cb5-49" tabindex="-1"></a><span class="fl">73.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-50"><a href="#cb5-50" tabindex="-1"></a><span class="fl">74.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-51"><a href="#cb5-51" tabindex="-1"></a><span class="fl">76.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-52"><a href="#cb5-52" tabindex="-1"></a><span class="fl">77.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-53"><a href="#cb5-53" tabindex="-1"></a><span class="fl">79.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-54"><a href="#cb5-54" tabindex="-1"></a><span class="fl">80.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-55"><a href="#cb5-55" tabindex="-1"></a><span class="fl">82.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-56"><a href="#cb5-56" tabindex="-1"></a><span class="fl">84.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-57"><a href="#cb5-57" tabindex="-1"></a><span class="fl">85.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-58"><a href="#cb5-58" tabindex="-1"></a><span class="fl">87.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-59"><a href="#cb5-59" tabindex="-1"></a><span class="fl">88.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-60"><a href="#cb5-60" tabindex="-1"></a><span class="fl">90.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-61"><a href="#cb5-61" tabindex="-1"></a><span class="fl">91.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-62"><a href="#cb5-62" tabindex="-1"></a><span class="fl">93.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-63"><a href="#cb5-63" tabindex="-1"></a><span class="fl">94.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-64"><a href="#cb5-64" tabindex="-1"></a><span class="fl">96.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-65"><a href="#cb5-65" tabindex="-1"></a><span class="fl">97.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-66"><a href="#cb5-66" tabindex="-1"></a><span class="fl">100.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb5-67"><a href="#cb5-67" tabindex="-1"></a>                        </span>
-<span id="cb5-68"><a href="#cb5-68" tabindex="-1"></a></span>
-<span id="cb5-69"><a href="#cb5-69" tabindex="-1"></a></span>
-<span id="cb5-70"><a href="#cb5-70" tabindex="-1"></a><span class="co">#&gt; ✔ File converted:</span></span>
-<span id="cb5-71"><a href="#cb5-71" tabindex="-1"></a><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpusjJ5z/vignette/VR2AR_546310_20190613_1.vrl</span></span>
-<span id="cb5-72"><a href="#cb5-72" tabindex="-1"></a><span class="co">#&gt; ℹ File saved in:</span></span>
-<span id="cb5-73"><a href="#cb5-73" tabindex="-1"></a><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpusjJ5z/vignette/VR2AR_546310_20190613_1.csv</span></span>
-<span id="cb5-74"><a href="#cb5-74" tabindex="-1"></a></span>
-<span id="cb5-75"><a href="#cb5-75" tabindex="-1"></a><span class="fu">list.files</span>(td, <span class="at">pattern =</span> <span class="st">"VR2AR"</span>)</span>
-<span id="cb5-76"><a href="#cb5-76" tabindex="-1"></a><span class="co">#&gt; [1] "VR2AR_546310_20190613_1.csv" "VR2AR_546310_20190613_1.vrl"</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vdat_to_csv.html">vdat_to_csv</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"VR2AR_546310_20190613_1.vrl"</span><span class="op">)</span>,</span>
+<span>  outdir <span class="op">=</span> <span class="va">td</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ Using Wine mode: EXPERIMENTAL!</span></span>
+<span><span class="co">#&gt; Error in `error_file_location()` at rvdat/R/vdat_to.R:105:5:</span></span>
+<span><span class="co">#&gt; ✖ Call to VDAT failed with error:</span></span>
+<span><span class="co">#&gt;   !! ERROR: Invalid Argument: file is</span></span>
+<span><span class="co">#&gt;   required</span></span>
+<span><span class="co">#&gt; ℹ Is the location of</span></span>
+<span><span class="co">#&gt;   /tmp/RtmpZfiiUk/vignette/VR2AR_546310_20190613_1.vrl</span></span>
+<span><span class="co">#&gt;   correct?</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">td</span>, pattern <span class="op">=</span> <span class="st">"VR2AR"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "VR2AR_546310_20190613_1.vrl"</span></span></code></pre></div>
 <p><code>vdat</code> is very respectful of your data in that it never
 overwrites files that exist in the same directory. It’ll just tack on a
 time stamp to the name of the newly-exported file.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">vdat_to_csv</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">file.path</span>(td, <span class="st">"VR2AR_546310_20190613_1.vrl"</span>),</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="at">outdir =</span> td</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>)</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; 0.0% - Converting File</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="fl">7.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="fl">9.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="fl">10.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="fl">12.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="fl">13.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="fl">15.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="fl">16.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="fl">18.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="fl">19.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="fl">21.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="fl">22.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="fl">24.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="fl">26.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="fl">27.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="fl">29.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="fl">30.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="fl">32.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a><span class="fl">33.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a><span class="fl">35.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a><span class="fl">36.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a><span class="fl">38.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a><span class="fl">39.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-28"><a href="#cb6-28" tabindex="-1"></a><span class="fl">41.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a><span class="fl">42.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-30"><a href="#cb6-30" tabindex="-1"></a><span class="fl">44.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-31"><a href="#cb6-31" tabindex="-1"></a><span class="fl">45.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-32"><a href="#cb6-32" tabindex="-1"></a><span class="fl">47.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a><span class="fl">48.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-34"><a href="#cb6-34" tabindex="-1"></a><span class="fl">50.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-35"><a href="#cb6-35" tabindex="-1"></a><span class="fl">51.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-36"><a href="#cb6-36" tabindex="-1"></a><span class="fl">53.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-37"><a href="#cb6-37" tabindex="-1"></a><span class="fl">55.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-38"><a href="#cb6-38" tabindex="-1"></a><span class="fl">56.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-39"><a href="#cb6-39" tabindex="-1"></a><span class="fl">58.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-40"><a href="#cb6-40" tabindex="-1"></a><span class="fl">59.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-41"><a href="#cb6-41" tabindex="-1"></a><span class="fl">61.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-42"><a href="#cb6-42" tabindex="-1"></a><span class="fl">62.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-43"><a href="#cb6-43" tabindex="-1"></a><span class="fl">64.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-44"><a href="#cb6-44" tabindex="-1"></a><span class="fl">65.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-45"><a href="#cb6-45" tabindex="-1"></a><span class="fl">67.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-46"><a href="#cb6-46" tabindex="-1"></a><span class="fl">68.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-47"><a href="#cb6-47" tabindex="-1"></a><span class="fl">70.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-48"><a href="#cb6-48" tabindex="-1"></a><span class="fl">71.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-49"><a href="#cb6-49" tabindex="-1"></a><span class="fl">73.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-50"><a href="#cb6-50" tabindex="-1"></a><span class="fl">74.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-51"><a href="#cb6-51" tabindex="-1"></a><span class="fl">76.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-52"><a href="#cb6-52" tabindex="-1"></a><span class="fl">77.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-53"><a href="#cb6-53" tabindex="-1"></a><span class="fl">79.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-54"><a href="#cb6-54" tabindex="-1"></a><span class="fl">80.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-55"><a href="#cb6-55" tabindex="-1"></a><span class="fl">82.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-56"><a href="#cb6-56" tabindex="-1"></a><span class="fl">84.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-57"><a href="#cb6-57" tabindex="-1"></a><span class="fl">85.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-58"><a href="#cb6-58" tabindex="-1"></a><span class="fl">87.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-59"><a href="#cb6-59" tabindex="-1"></a><span class="fl">88.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-60"><a href="#cb6-60" tabindex="-1"></a><span class="fl">90.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-61"><a href="#cb6-61" tabindex="-1"></a><span class="fl">91.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-62"><a href="#cb6-62" tabindex="-1"></a><span class="fl">93.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-63"><a href="#cb6-63" tabindex="-1"></a><span class="fl">94.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-64"><a href="#cb6-64" tabindex="-1"></a><span class="fl">96.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-65"><a href="#cb6-65" tabindex="-1"></a><span class="fl">97.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-66"><a href="#cb6-66" tabindex="-1"></a><span class="fl">100.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb6-67"><a href="#cb6-67" tabindex="-1"></a>                        </span>
-<span id="cb6-68"><a href="#cb6-68" tabindex="-1"></a></span>
-<span id="cb6-69"><a href="#cb6-69" tabindex="-1"></a></span>
-<span id="cb6-70"><a href="#cb6-70" tabindex="-1"></a><span class="co">#&gt; ✔ File converted:</span></span>
-<span id="cb6-71"><a href="#cb6-71" tabindex="-1"></a><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpusjJ5z/vignette/VR2AR_546310_20190613_1.vrl</span></span>
-<span id="cb6-72"><a href="#cb6-72" tabindex="-1"></a><span class="co">#&gt; ℹ File saved in:</span></span>
-<span id="cb6-73"><a href="#cb6-73" tabindex="-1"></a><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpusjJ5z/vignette/VR2AR_546310_20190613_1[20241115-12-53-03-xxxxxx].csv</span></span>
-<span id="cb6-74"><a href="#cb6-74" tabindex="-1"></a></span>
-<span id="cb6-75"><a href="#cb6-75" tabindex="-1"></a><span class="fu">list.files</span>(td, <span class="at">pattern =</span> <span class="st">"VR2AR"</span>)</span>
-<span id="cb6-76"><a href="#cb6-76" tabindex="-1"></a><span class="co">#&gt; [1] "VR2AR_546310_20190613_1.csv"                          </span></span>
-<span id="cb6-77"><a href="#cb6-77" tabindex="-1"></a><span class="co">#&gt; [2] "VR2AR_546310_20190613_1.vrl"                          </span></span>
-<span id="cb6-78"><a href="#cb6-78" tabindex="-1"></a><span class="co">#&gt; [3] "VR2AR_546310_20190613_1[20241115-12-53-03-400292].csv"</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vdat_to_csv.html">vdat_to_csv</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"VR2AR_546310_20190613_1.vrl"</span><span class="op">)</span>,</span>
+<span>  outdir <span class="op">=</span> <span class="va">td</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ Using Wine mode: EXPERIMENTAL!</span></span>
+<span><span class="co">#&gt; Error in `error_file_location()` at rvdat/R/vdat_to.R:105:5:</span></span>
+<span><span class="co">#&gt; ✖ Call to VDAT failed with error:</span></span>
+<span><span class="co">#&gt;   !! ERROR: Invalid Argument: file is</span></span>
+<span><span class="co">#&gt;   required</span></span>
+<span><span class="co">#&gt; ℹ Is the location of</span></span>
+<span><span class="co">#&gt;   /tmp/RtmpZfiiUk/vignette/VR2AR_546310_20190613_1.vrl</span></span>
+<span><span class="co">#&gt;   correct?</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">td</span>, pattern <span class="op">=</span> <span class="st">"VR2AR"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "VR2AR_546310_20190613_1.vrl"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="converting-a-vdat-file-to-a-csv-with-time-correction">Converting a VDAT file to a CSV with time correction<a class="anchor" aria-label="anchor" href="#converting-a-vdat-file-to-a-csv-with-time-correction"></a>
@@ -367,143 +195,20 @@ time stamp to the name of the newly-exported file.</p>
 <p>Adding the <code>time_corrected = TRUE</code> argument to
 <code>vdat_to_csv</code> corrects for clock drift using
 <code>vdat</code>’s internal algorithm:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">vdat_to_csv</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">file.path</span>(td, <span class="st">"VR2AR_546310_20190613_1.vrl"</span>),</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="at">outdir =</span> td,</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="at">time_corrected =</span> <span class="cn">TRUE</span></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>)</span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; 0.0% - Extracting clock data</span></span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="fl">7.6</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="fl">9.2</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="fl">10.7</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="fl">12.2</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="fl">13.7</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="fl">15.3</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="fl">16.8</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="fl">18.3</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="fl">19.8</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="fl">21.4</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="fl">22.9</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="fl">24.4</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="fl">26.0</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="fl">27.5</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="fl">29.0</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="fl">30.5</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="fl">32.1</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="fl">33.6</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a><span class="fl">35.1</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a><span class="fl">36.6</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a><span class="fl">38.2</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a><span class="fl">39.7</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a><span class="fl">41.2</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a><span class="fl">42.7</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a><span class="fl">44.3</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a><span class="fl">45.8</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a><span class="fl">47.3</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a><span class="fl">48.9</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-35"><a href="#cb7-35" tabindex="-1"></a><span class="fl">50.4</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-36"><a href="#cb7-36" tabindex="-1"></a><span class="fl">51.9</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a><span class="fl">53.4</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a><span class="fl">55.0</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-39"><a href="#cb7-39" tabindex="-1"></a><span class="fl">56.5</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-40"><a href="#cb7-40" tabindex="-1"></a><span class="fl">58.0</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-41"><a href="#cb7-41" tabindex="-1"></a><span class="fl">59.5</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-42"><a href="#cb7-42" tabindex="-1"></a><span class="fl">61.1</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-43"><a href="#cb7-43" tabindex="-1"></a><span class="fl">62.6</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-44"><a href="#cb7-44" tabindex="-1"></a><span class="fl">64.1</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-45"><a href="#cb7-45" tabindex="-1"></a><span class="fl">65.6</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-46"><a href="#cb7-46" tabindex="-1"></a><span class="fl">67.2</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-47"><a href="#cb7-47" tabindex="-1"></a><span class="fl">68.7</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-48"><a href="#cb7-48" tabindex="-1"></a><span class="fl">70.2</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-49"><a href="#cb7-49" tabindex="-1"></a><span class="fl">71.8</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-50"><a href="#cb7-50" tabindex="-1"></a><span class="fl">73.3</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-51"><a href="#cb7-51" tabindex="-1"></a><span class="fl">74.8</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-52"><a href="#cb7-52" tabindex="-1"></a><span class="fl">76.3</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-53"><a href="#cb7-53" tabindex="-1"></a><span class="fl">77.9</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-54"><a href="#cb7-54" tabindex="-1"></a><span class="fl">79.4</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-55"><a href="#cb7-55" tabindex="-1"></a><span class="fl">80.9</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-56"><a href="#cb7-56" tabindex="-1"></a><span class="fl">82.4</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-57"><a href="#cb7-57" tabindex="-1"></a><span class="fl">84.0</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-58"><a href="#cb7-58" tabindex="-1"></a><span class="fl">85.5</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-59"><a href="#cb7-59" tabindex="-1"></a><span class="fl">87.0</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-60"><a href="#cb7-60" tabindex="-1"></a><span class="fl">88.5</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-61"><a href="#cb7-61" tabindex="-1"></a><span class="fl">90.1</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-62"><a href="#cb7-62" tabindex="-1"></a><span class="fl">91.6</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-63"><a href="#cb7-63" tabindex="-1"></a><span class="fl">93.1</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-64"><a href="#cb7-64" tabindex="-1"></a><span class="fl">94.7</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-65"><a href="#cb7-65" tabindex="-1"></a><span class="fl">96.2</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-66"><a href="#cb7-66" tabindex="-1"></a><span class="fl">97.7</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-67"><a href="#cb7-67" tabindex="-1"></a><span class="fl">100.0</span>% <span class="sc">-</span> Extracting clock data</span>
-<span id="cb7-68"><a href="#cb7-68" tabindex="-1"></a>                              </span>
-<span id="cb7-69"><a href="#cb7-69" tabindex="-1"></a><span class="fl">0.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-70"><a href="#cb7-70" tabindex="-1"></a><span class="fl">7.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-71"><a href="#cb7-71" tabindex="-1"></a><span class="fl">9.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-72"><a href="#cb7-72" tabindex="-1"></a><span class="fl">10.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-73"><a href="#cb7-73" tabindex="-1"></a><span class="fl">12.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-74"><a href="#cb7-74" tabindex="-1"></a><span class="fl">13.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-75"><a href="#cb7-75" tabindex="-1"></a><span class="fl">15.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-76"><a href="#cb7-76" tabindex="-1"></a><span class="fl">16.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-77"><a href="#cb7-77" tabindex="-1"></a><span class="fl">18.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-78"><a href="#cb7-78" tabindex="-1"></a><span class="fl">19.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-79"><a href="#cb7-79" tabindex="-1"></a><span class="fl">21.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-80"><a href="#cb7-80" tabindex="-1"></a><span class="fl">22.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-81"><a href="#cb7-81" tabindex="-1"></a><span class="fl">24.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-82"><a href="#cb7-82" tabindex="-1"></a><span class="fl">26.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-83"><a href="#cb7-83" tabindex="-1"></a><span class="fl">27.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-84"><a href="#cb7-84" tabindex="-1"></a><span class="fl">29.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-85"><a href="#cb7-85" tabindex="-1"></a><span class="fl">30.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-86"><a href="#cb7-86" tabindex="-1"></a><span class="fl">32.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-87"><a href="#cb7-87" tabindex="-1"></a><span class="fl">33.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-88"><a href="#cb7-88" tabindex="-1"></a><span class="fl">35.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-89"><a href="#cb7-89" tabindex="-1"></a><span class="fl">36.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-90"><a href="#cb7-90" tabindex="-1"></a><span class="fl">38.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-91"><a href="#cb7-91" tabindex="-1"></a><span class="fl">39.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-92"><a href="#cb7-92" tabindex="-1"></a><span class="fl">41.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-93"><a href="#cb7-93" tabindex="-1"></a><span class="fl">42.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-94"><a href="#cb7-94" tabindex="-1"></a><span class="fl">44.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-95"><a href="#cb7-95" tabindex="-1"></a><span class="fl">45.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-96"><a href="#cb7-96" tabindex="-1"></a><span class="fl">47.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-97"><a href="#cb7-97" tabindex="-1"></a><span class="fl">48.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-98"><a href="#cb7-98" tabindex="-1"></a><span class="fl">50.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-99"><a href="#cb7-99" tabindex="-1"></a><span class="fl">51.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-100"><a href="#cb7-100" tabindex="-1"></a><span class="fl">53.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-101"><a href="#cb7-101" tabindex="-1"></a><span class="fl">55.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-102"><a href="#cb7-102" tabindex="-1"></a><span class="fl">56.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-103"><a href="#cb7-103" tabindex="-1"></a><span class="fl">58.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-104"><a href="#cb7-104" tabindex="-1"></a><span class="fl">59.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-105"><a href="#cb7-105" tabindex="-1"></a><span class="fl">61.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-106"><a href="#cb7-106" tabindex="-1"></a><span class="fl">62.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-107"><a href="#cb7-107" tabindex="-1"></a><span class="fl">64.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-108"><a href="#cb7-108" tabindex="-1"></a><span class="fl">65.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-109"><a href="#cb7-109" tabindex="-1"></a><span class="fl">67.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-110"><a href="#cb7-110" tabindex="-1"></a><span class="fl">68.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-111"><a href="#cb7-111" tabindex="-1"></a><span class="fl">70.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-112"><a href="#cb7-112" tabindex="-1"></a><span class="fl">71.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-113"><a href="#cb7-113" tabindex="-1"></a><span class="fl">73.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-114"><a href="#cb7-114" tabindex="-1"></a><span class="fl">74.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-115"><a href="#cb7-115" tabindex="-1"></a><span class="fl">76.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-116"><a href="#cb7-116" tabindex="-1"></a><span class="fl">77.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-117"><a href="#cb7-117" tabindex="-1"></a><span class="fl">79.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-118"><a href="#cb7-118" tabindex="-1"></a><span class="fl">80.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-119"><a href="#cb7-119" tabindex="-1"></a><span class="fl">82.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-120"><a href="#cb7-120" tabindex="-1"></a><span class="fl">84.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-121"><a href="#cb7-121" tabindex="-1"></a><span class="fl">85.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-122"><a href="#cb7-122" tabindex="-1"></a><span class="fl">87.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-123"><a href="#cb7-123" tabindex="-1"></a><span class="fl">88.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-124"><a href="#cb7-124" tabindex="-1"></a><span class="fl">90.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-125"><a href="#cb7-125" tabindex="-1"></a><span class="fl">91.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-126"><a href="#cb7-126" tabindex="-1"></a><span class="fl">93.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-127"><a href="#cb7-127" tabindex="-1"></a><span class="fl">94.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-128"><a href="#cb7-128" tabindex="-1"></a><span class="fl">96.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-129"><a href="#cb7-129" tabindex="-1"></a><span class="fl">97.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-130"><a href="#cb7-130" tabindex="-1"></a><span class="fl">100.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb7-131"><a href="#cb7-131" tabindex="-1"></a>                        </span>
-<span id="cb7-132"><a href="#cb7-132" tabindex="-1"></a></span>
-<span id="cb7-133"><a href="#cb7-133" tabindex="-1"></a></span>
-<span id="cb7-134"><a href="#cb7-134" tabindex="-1"></a><span class="co">#&gt; ✔ File converted:</span></span>
-<span id="cb7-135"><a href="#cb7-135" tabindex="-1"></a><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpusjJ5z/vignette/VR2AR_546310_20190613_1.vrl</span></span>
-<span id="cb7-136"><a href="#cb7-136" tabindex="-1"></a><span class="co">#&gt; ℹ File saved in:</span></span>
-<span id="cb7-137"><a href="#cb7-137" tabindex="-1"></a><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpusjJ5z/vignette/VR2AR_546310_20190613_1[20241115-12-53-03-xxxxxx].csv</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vdat_to_csv.html">vdat_to_csv</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"VR2AR_546310_20190613_1.vrl"</span><span class="op">)</span>,</span>
+<span>  outdir <span class="op">=</span> <span class="va">td</span>,</span>
+<span>  time_corrected <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ Using Wine mode: EXPERIMENTAL!</span></span>
+<span><span class="co">#&gt; Error in `error_file_location()` at rvdat/R/vdat_to.R:105:5:</span></span>
+<span><span class="co">#&gt; ✖ Call to VDAT failed with error:</span></span>
+<span><span class="co">#&gt;   !! ERROR: Invalid Argument: file is</span></span>
+<span><span class="co">#&gt;   required</span></span>
+<span><span class="co">#&gt; ℹ Is the location of</span></span>
+<span><span class="co">#&gt;   /tmp/RtmpZfiiUk/vignette/VR2AR_546310_20190613_1.vrl</span></span>
+<span><span class="co">#&gt;   correct?</span></span></code></pre></div>
 <p>A new column is added with time corrected down to the
 microsecond.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -511,10 +216,10 @@ microsecond.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">td</span>, pattern <span class="op">=</span> <span class="st">"VR2AR.*\\]\\.csv$"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
 <span>  header <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in file(file, "rt"): invalid 'description' argument</span></span>
 <span></span>
 <span><span class="va">corrected</span><span class="op">[</span><span class="fl">46</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="co">#&gt;                     V2                         V3</span></span>
-<span><span class="co">#&gt; 46 2019-06-11 02:47:00 2019-06-11 02:47:00.000725</span></span></code></pre></div>
+<span><span class="co">#&gt; Error: object 'corrected' not found</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="splitting-a-vdat-file-into-a-folder-of-csvs">Splitting a VDAT file into a folder of CSVs<a class="anchor" aria-label="anchor" href="#splitting-a-vdat-file-into-a-folder-of-csvs"></a>
@@ -534,93 +239,27 @@ convenience wrapper around…</li>
 <li>
 <code>vdat_call(c('convert', '--format=csv.fathom.split', 'PATH_TO_FILE'))</code>.</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">vdat_to_folder</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">file.path</span>(td, <span class="st">"VR2AR_546310_20190613_1.vrl"</span>),</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="at">outdir =</span> td</span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>)</span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; 0.0% - Converting File</span></span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="fl">7.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="fl">9.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="fl">10.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="fl">12.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="fl">13.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="fl">15.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="fl">16.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="fl">18.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="fl">19.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="fl">21.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="fl">22.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="fl">24.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="fl">26.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="fl">27.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="fl">29.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="fl">30.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="fl">32.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="fl">33.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a><span class="fl">35.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a><span class="fl">36.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a><span class="fl">38.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a><span class="fl">39.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a><span class="fl">41.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a><span class="fl">42.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a><span class="fl">44.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a><span class="fl">45.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a><span class="fl">47.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a><span class="fl">48.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="fl">50.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a><span class="fl">51.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a><span class="fl">53.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a><span class="fl">55.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a><span class="fl">56.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-39"><a href="#cb9-39" tabindex="-1"></a><span class="fl">58.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-40"><a href="#cb9-40" tabindex="-1"></a><span class="fl">59.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-41"><a href="#cb9-41" tabindex="-1"></a><span class="fl">61.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-42"><a href="#cb9-42" tabindex="-1"></a><span class="fl">62.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-43"><a href="#cb9-43" tabindex="-1"></a><span class="fl">64.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-44"><a href="#cb9-44" tabindex="-1"></a><span class="fl">65.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-45"><a href="#cb9-45" tabindex="-1"></a><span class="fl">67.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-46"><a href="#cb9-46" tabindex="-1"></a><span class="fl">68.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-47"><a href="#cb9-47" tabindex="-1"></a><span class="fl">70.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-48"><a href="#cb9-48" tabindex="-1"></a><span class="fl">71.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-49"><a href="#cb9-49" tabindex="-1"></a><span class="fl">73.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-50"><a href="#cb9-50" tabindex="-1"></a><span class="fl">74.8</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-51"><a href="#cb9-51" tabindex="-1"></a><span class="fl">76.3</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-52"><a href="#cb9-52" tabindex="-1"></a><span class="fl">77.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-53"><a href="#cb9-53" tabindex="-1"></a><span class="fl">79.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-54"><a href="#cb9-54" tabindex="-1"></a><span class="fl">80.9</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-55"><a href="#cb9-55" tabindex="-1"></a><span class="fl">82.4</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-56"><a href="#cb9-56" tabindex="-1"></a><span class="fl">84.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-57"><a href="#cb9-57" tabindex="-1"></a><span class="fl">85.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-58"><a href="#cb9-58" tabindex="-1"></a><span class="fl">87.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-59"><a href="#cb9-59" tabindex="-1"></a><span class="fl">88.5</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-60"><a href="#cb9-60" tabindex="-1"></a><span class="fl">90.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-61"><a href="#cb9-61" tabindex="-1"></a><span class="fl">91.6</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-62"><a href="#cb9-62" tabindex="-1"></a><span class="fl">93.1</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-63"><a href="#cb9-63" tabindex="-1"></a><span class="fl">94.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-64"><a href="#cb9-64" tabindex="-1"></a><span class="fl">96.2</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-65"><a href="#cb9-65" tabindex="-1"></a><span class="fl">97.7</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-66"><a href="#cb9-66" tabindex="-1"></a><span class="fl">100.0</span>% <span class="sc">-</span> Converting File</span>
-<span id="cb9-67"><a href="#cb9-67" tabindex="-1"></a>                        </span>
-<span id="cb9-68"><a href="#cb9-68" tabindex="-1"></a></span>
-<span id="cb9-69"><a href="#cb9-69" tabindex="-1"></a></span>
-<span id="cb9-70"><a href="#cb9-70" tabindex="-1"></a><span class="co">#&gt; ✔ File converted:</span></span>
-<span id="cb9-71"><a href="#cb9-71" tabindex="-1"></a><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpusjJ5z/vignette/VR2AR_546310_20190613_1.vrl</span></span>
-<span id="cb9-72"><a href="#cb9-72" tabindex="-1"></a><span class="co">#&gt; ℹ Files saved in:</span></span>
-<span id="cb9-73"><a href="#cb9-73" tabindex="-1"></a><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpusjJ5z/vignette/VR2AR_546310_20190613_1.csv-fathom-split</span></span>
-<span id="cb9-74"><a href="#cb9-74" tabindex="-1"></a></span>
-<span id="cb9-75"><a href="#cb9-75" tabindex="-1"></a><span class="fu">list.dirs</span>(td, <span class="at">full.names =</span> F, <span class="at">recursive =</span> F)</span>
-<span id="cb9-76"><a href="#cb9-76" tabindex="-1"></a><span class="co">#&gt; [1] "VR2AR_546310_20190613_1.csv-fathom-split"</span></span>
-<span id="cb9-77"><a href="#cb9-77" tabindex="-1"></a></span>
-<span id="cb9-78"><a href="#cb9-78" tabindex="-1"></a><span class="fu">list.files</span>(</span>
-<span id="cb9-79"><a href="#cb9-79" tabindex="-1"></a>  <span class="fu">list.dirs</span>(td, <span class="at">full.names =</span> T, <span class="at">recursive =</span> F)</span>
-<span id="cb9-80"><a href="#cb9-80" tabindex="-1"></a>)</span>
-<span id="cb9-81"><a href="#cb9-81" tabindex="-1"></a><span class="co">#&gt;  [1] "ATTITUDE.csv"         "BATTERY.csv"         </span></span>
-<span id="cb9-82"><a href="#cb9-82" tabindex="-1"></a><span class="co">#&gt;  [3] "CFG_CHANNEL.csv"      "CFG_TRANSMITTER.csv" </span></span>
-<span id="cb9-83"><a href="#cb9-83" tabindex="-1"></a><span class="co">#&gt;  [5] "CLOCK_REF.csv"        "DATA_SOURCE_FILE.csv"</span></span>
-<span id="cb9-84"><a href="#cb9-84" tabindex="-1"></a><span class="co">#&gt;  [7] "DEPTH.csv"            "DET.csv"             </span></span>
-<span id="cb9-85"><a href="#cb9-85" tabindex="-1"></a><span class="co">#&gt;  [9] "DIAG.csv"             "DIAG_FAST.csv"       </span></span>
-<span id="cb9-86"><a href="#cb9-86" tabindex="-1"></a><span class="co">#&gt; [11] "EVENT_INIT.csv"       "EVENT_OFFLOAD.csv"   </span></span>
-<span id="cb9-87"><a href="#cb9-87" tabindex="-1"></a><span class="co">#&gt; [13] "HEALTH_VR2AR.csv"     "TEMP.csv"</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vdat_to_folder.html">vdat_to_folder</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"VR2AR_546310_20190613_1.vrl"</span><span class="op">)</span>,</span>
+<span>  outdir <span class="op">=</span> <span class="va">td</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ Using Wine mode: EXPERIMENTAL!</span></span>
+<span><span class="co">#&gt; Error in `error_file_location()` at rvdat/R/vdat_to.R:105:5:</span></span>
+<span><span class="co">#&gt; ✖ Call to VDAT failed with error:</span></span>
+<span><span class="co">#&gt;   !! ERROR: Invalid Argument: file is</span></span>
+<span><span class="co">#&gt;   required</span></span>
+<span><span class="co">#&gt; ℹ Is the location of</span></span>
+<span><span class="co">#&gt;   /tmp/RtmpZfiiUk/vignette/VR2AR_546310_20190613_1.vrl</span></span>
+<span><span class="co">#&gt;   correct?</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.dirs</a></span><span class="op">(</span><span class="va">td</span>, full.names <span class="op">=</span> <span class="cn">F</span>, recursive <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<span><span class="co">#&gt; character(0)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.dirs</a></span><span class="op">(</span><span class="va">td</span>, full.names <span class="op">=</span> <span class="cn">T</span>, recursive <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; character(0)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="other-file-types">Other file types<a class="anchor" aria-label="anchor" href="#other-file-types"></a>
@@ -643,143 +282,18 @@ HR-180 <code>VDAT</code> file:</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">hr_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vdat_inspect.html">vdat_inspect</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>,<span class="st">"HR2-180_461396_2021-04-20_173145.vdat"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="co">#&gt; ==============================================================================</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt;                                      VDAT                                     </span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; ==============================================================================</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; File:      HR2-180_461396_2021-04-20_173145.vdat</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Original:  HR2-180 461396 2021-04-20 173145.vdat</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Container: Vemco Data File (com.vemco.file.vdat/1.0.0)</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Content:   HR2 Receiver Data Pack (com.vemco.file.vrdp.vrhr2/1.0.0)</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Created:   2021-04-20T17:31:45</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; File UUID: f1a18604-46ea-4985-b57c-24809d37ad46</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Data UUID: 1a595886-99ea-4ee9-a996-2e4d92dc01c3</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Size:      39370</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Blocks:    17</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Block Types: </span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt;            VRDP Header (com.vemco.file.vrdp.header/1.1.0)</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt;            RxLog General Summary (com.vemco.protobuf.rxlog.summary.general/1.0.0)</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt;            HR2 Offload Header (com.vemco.device.vrhr2.offload.header/1.0.0)</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt;            HR2 Offload Footer (com.vemco.device.vrhr2.offload.footer/1.0.0)</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt;            HR2 Detection Log Block (com.vemco.device.vrhr2.log.detect/1.0.0)</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt;            HR2 Ping Log Block (com.vemco.device.vrhr2.log.ping/1.0.0)</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Codecs: </span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt;            zlib compression (com.vemco.file.vdat.codec.zlib/1.2.11)</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; </span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; ==============================================================================</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt;                                      VRDP                                     </span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; ==============================================================================</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Creator:   fathom-2.5.0-19700101--release</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Source:    HR2-180 (0814)</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; </span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; ==============================================================================</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt;                                    Offload                                    </span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; ==============================================================================</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Firmware Version: 2.0.1</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Receiver Time @ Init: 2021-04-20T17:20:05Z</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Client Time @ Init: 2021-04-20T17:20:06Z</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Client Time Zone @ Init: -04:00</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Receiver Time @ Offload: 2021-04-20T21:31:45Z</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Client Time @ Offload: 2021-04-20T21:31:45Z</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; Client Time Zone @ Offload: -04:00</span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; </span></span>
-<span></span>
-<span></span>
-<span><span class="co">#&gt; </span></span>
-<span></span>
-<span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"HR2-180_461396_2021-04-20_173145.vdat"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ Using Wine mode: EXPERIMENTAL!</span></span>
+<span><span class="co">#&gt; Error in `error_file_location()` at rvdat/R/vdat_inspect.R:18:5:</span></span>
+<span><span class="co">#&gt; ✖ Call to VDAT failed with error:</span></span>
+<span><span class="co">#&gt;   !! ERROR: Invalid Argument: file is</span></span>
+<span><span class="co">#&gt;   required</span></span>
+<span><span class="co">#&gt; ℹ Is the location of</span></span>
+<span><span class="co">#&gt;   /tmp/RtmpZfiiUk/vignette/HR2-180_461396_2021-04-20_173145.vdat</span></span>
+<span><span class="co">#&gt;   correct?</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">hr_output</span><span class="op">)</span></span>
-<span><span class="co">#&gt;    variable                                                    value</span></span>
-<span><span class="co">#&gt; 1      File                    HR2-180_461396_2021-04-20_173145.vdat</span></span>
-<span><span class="co">#&gt; 2  Original                    HR2-180 461396 2021-04-20 173145.vdat</span></span>
-<span><span class="co">#&gt; 3 Container              Vemco Data File (com.vemco.file.vdat/1.0.0)</span></span>
-<span><span class="co">#&gt; 4   Content HR2 Receiver Data Pack (com.vemco.file.vrdp.vrhr2/1.0.0)</span></span>
-<span><span class="co">#&gt; 5   Created                                      2021-04-20T17:31:45</span></span>
-<span><span class="co">#&gt; 6 File UUID                     f1a18604-46ea-4985-b57c-24809d37ad46</span></span>
-<span><span class="co">#&gt;   section</span></span>
-<span><span class="co">#&gt; 1    VDAT</span></span>
-<span><span class="co">#&gt; 2    VDAT</span></span>
-<span><span class="co">#&gt; 3    VDAT</span></span>
-<span><span class="co">#&gt; 4    VDAT</span></span>
-<span><span class="co">#&gt; 5    VDAT</span></span>
-<span><span class="co">#&gt; 6    VDAT</span></span></code></pre></div>
+<span><span class="co">#&gt; Error: object 'hr_output' not found</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

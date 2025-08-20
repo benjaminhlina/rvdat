@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">rvdat</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,16 +72,31 @@
 </h3>
 <p><code>rvdat</code> requires a VDAT executable (<code>vdat.exe</code>) in order to work, which comes packaged in Innovasea’s Fathom Connect software. You can <a href="https://support.fishtracking.innovasea.com/s/downloads" class="external-link">download the software here</a> after providing your contact details and agreeing to their End User License Agreement.</p>
 <p><img src="reference/figures/README-fathom_connect_download.png"></p>
-<p>Extract and run the installer, paying attention into which directory the program is installed. The default install location on Windows machines is <code>C:\Program Files\Innovasea\Fathom Connect</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">path_to_vdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span></span>
-<span>  path <span class="op">=</span> <span class="st">"C:/Program Files/Innovasea/Fathom Connect"</span>,</span>
-<span>  pattern <span class="op">=</span> <span class="st">"^vdat\\.exe$"</span>,</span>
-<span>  full.names <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">path_to_vdat</span></span>
-<span><span class="co">#&gt; [1] "C:/Program Files/Innovasea/Fathom Connect/vdat.exe"</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="install-fathom-connect">Install Fathom Connect<a class="anchor" aria-label="anchor" href="#install-fathom-connect"></a>
+</h3>
+<div class="section level4">
+<h4 id="on-windows">On Windows<a class="anchor" aria-label="anchor" href="#on-windows"></a>
+</h4>
+<p>Fathom Connect is a Windows-specific program, so if you’re running Windows, you’re in luck! Just extract and run the installer, paying attention into which directory the program is installed. The default install location on Windows machines is <code>C:\Program Files\Innovasea\Fathom Connect</code>.</p>
+</div>
+<div class="section level4">
+<h4 id="on-linux">On Linux<a class="anchor" aria-label="anchor" href="#on-linux"></a>
+</h4>
+<p>Innovasea does not provide a non-Windows version of Fathom Connect and <code>vdat.exe</code>. If you’re up for doing a little bit more work, you can run <code>vdat.exe</code>, and thus <code>rdvat</code>, using <a href="https://www.winehq.org" class="external-link">Wine</a>. <a href="https://gitlab.winehq.org/wine/wine/-/wikis/Download" class="external-link">Install Wine</a> on your Linux distribution of choice, followed by <a href="https://github.com/Winetricks/winetricks" class="external-link">Winetricks</a>; the latter is used to install the needed Windows .NET frameworks: v4.5.2 is needed to run the installer and v 4.8 is needed to run the program. Note that this is a ~1.75GB installation.</p>
+<p>After installing, initiate Wine via <code>wineboot</code>, then use <code>winetricks</code> to set Wine to run as Windows 10 (or greater) and install the needed .NET frameworks.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">wineboot</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">winetricks</span> <span class="at">-q</span> win10 dotnet452 dotnet48</span></code></pre></div>
+<p>Now, you need to install Fathom Connect. The installer is usually named something like “Install-Fathom-Connect-SOMELONGVERSION.msi”, switch this with “Fathom-Connect-Installer.msi” below.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">wine</span> msiexec /i Fathom-Connect-Installer.msi /qb</span></code></pre></div>
+<p>If things don’t work and you’re not working headless, run <code>wine uninstaller</code> and install via the GUI interface. Yes, it is “<code>uninstaller</code>” (counter-intuitive).</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="on-mac">On Mac<a class="anchor" aria-label="anchor" href="#on-mac"></a>
+</h3>
+<p>Similar to Linux, <a href="https://gitlab.winehq.org/wine/wine/-/wikis/MacOS" class="external-link">install Wine</a>. Install Fathom Connect accordingly.</p>
 </div>
 <div class="section level3">
 <h3 id="install-rvdat">Install <code>rvdat</code>
@@ -89,7 +104,7 @@
 </h3>
 <p>You can install the most-up-to-date version of this package from <a href="https://mhpob.r-universe.dev/rvdat" class="external-link">R-universe</a> or <a href="https://github.com/mhpob/rvdat" class="external-link">GitHub</a>.</p>
 <p>R-universe:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span></span>
 <span>  <span class="st">"rvdat"</span>,</span>
 <span>  repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -98,7 +113,7 @@
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>GitHub:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mhpob/rvdat"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -168,35 +183,34 @@
 <h2 id="using-the-package">Using the package<a class="anchor" aria-label="anchor" href="#using-the-package"></a>
 </h2>
 <p>Load the package:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rvdat.obrien.page" class="external-link">rvdat</a></span><span class="op">)</span></span></code></pre></div>
 <p>Set or look for system location of vdat.exe:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/vdat_here.html">vdat_here</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>What version?</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/vdat_version.html">vdat_version</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "vdat-11.0.1-20240830-d01c0d-release"</span></span></code></pre></div>
-<p>Convert a VRL to CSV:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/vdat_here.html">vdat_here</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "C:/Program Files/Innovasea/Fathom Connect/vdat.exe"</span></span></code></pre></div>
+<p>What version?</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## vdat_to_csv("SOME-VDAT-FILE")</span></span>
-<span><span class="co">#&gt; 0.0% - Converting File42.2% - Converting File                       </span></span>
-<span><span class="co">#&gt; ✔ File converted:</span></span>
-<span><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\Rtmpyw429H/readme_files/HR2-180_461396_2021-04-20_173145.vdat</span></span>
-<span><span class="co">#&gt; ℹ File saved in:</span></span>
-<span><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\Rtmpyw429H/readme_files/HR2-180_461396_2021-04-20_173145.csv</span></span></code></pre></div>
-<p>Convert a VRL to a folder of CSVs split by data type:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/vdat_version.html">vdat_version</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "vdat-12.9.1-20250203-976858-release"</span></span></code></pre></div>
+<p>Convert a VRL to CSV:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## vdat_to_folder("SOME-VDAT-FILE")</span></span>
-<span><span class="co">#&gt; 0.0% - Converting File42.2% - Converting File                       </span></span>
+<code class="sourceCode R"><span><span class="co">## vdat_to_csv("SOME-VDAT-FILE")</span></span>
 <span><span class="co">#&gt; ✔ File converted:</span></span>
-<span><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\Rtmpyw429H/readme_files/HR2-180_461396_2021-04-20_173145.vdat</span></span>
+<span><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpOs8CLb/readme_files/HR2-180_461396_2021-04-20_173145.vdat</span></span>
+<span><span class="co">#&gt; ℹ File saved in:</span></span>
+<span><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpOs8CLb/readme_files/HR2-180_461396_2021-04-20_173145.csv</span></span></code></pre></div>
+<p>Convert a VRL to a folder of CSVs split by data type:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## vdat_to_folder("SOME-VDAT-FILE")</span></span>
+<span><span class="co">#&gt; ✔ File converted:</span></span>
+<span><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpOs8CLb/readme_files/HR2-180_461396_2021-04-20_173145.vdat</span></span>
 <span><span class="co">#&gt; ℹ Files saved in:</span></span>
-<span><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\Rtmpyw429H/readme_files/HR2-180_461396_2021-04-20_173145.csv-fathom-split</span></span>
+<span><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpOs8CLb/readme_files/HR2-180_461396_2021-04-20_173145.csv-fathom-split</span></span>
 <span><span class="co">## list.files("SOME-VDAT-FILE.csv-fathom-split")</span></span>
 <span><span class="co">#&gt; character(0)</span></span></code></pre></div>
 <p>Check out the file metadata:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## vdat_inspect("SOME-VDAT-FILE")</span></span>
 <span><span class="co">#&gt; ==============================================================================</span></span>
 <span><span class="co">#&gt;                                      VDAT                                     </span></span>
@@ -239,7 +253,7 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span></code></pre></div>
 <p>See the fields associated with different data types:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/vdat_template.html">vdat_template</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"csv.fathom"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $ATTITUDE_DESC</span></span>
 <span><span class="co">#&gt; [1] "Device Time (UTC)"   "Time"                "Time Offset (h)"    </span></span>
@@ -523,7 +537,7 @@
 <span><span class="co">#&gt;  [9] "Ambient Mean (deg C)"    "Sample Count"           </span></span>
 <span><span class="co">#&gt; [11] "Accumulation Period (s)"</span></span></code></pre></div>
 <p>Call VDAT using standard flags:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/vdat_call.html">vdat_call</a></span><span class="op">(</span><span class="st">"--help"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Usage: C:\PROGRA~1\INNOVA~1\FATHOM~1\vdat.exe [OPTIONS] [SUBCOMMAND]</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -549,9 +563,8 @@
 <li>Create informative messages, warnings, and errors using the <a href="https://cli.r-lib.org/" class="external-link"><code>cli</code> package</a>.</li>
 <li>In summary:</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_new_wrapper</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">some_command</span><span class="op">)</span> <span class="op">{</span></span>
-<span></span>
 <span>  <span class="fu"><a href="reference/vdat_call.html">vdat_call</a></span><span class="op">(</span><span class="st">"--do this"</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_alert.html" class="external-link">cli_alert_success</a></span><span class="op">(</span><span class="st">"Woohoo!!"</span><span class="op">)</span></span>
