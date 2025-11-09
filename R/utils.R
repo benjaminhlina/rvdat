@@ -64,6 +64,72 @@ error_too_many_files <- function(output_format) {
   )
 }
 
+#' @rdname error_functions
+#'
+error_size_type <- function(x) {
+  image_size_types <- c("download_size", "uncompressed_size")
+
+  if (!x %in% image_size_types || !is.character(x)) {
+    cli::cli_abort(c(
+      "Invalid image size type.",
+      "x" = "Got: {.val {x}}",
+      "i" = "Valid options are {.val Size} or {.val VirtualSize}."
+    ))
+
+  }
+}
+
+#' @rdname error_functions
+
+error_image_name <- function(x) {
+  if (!is.character(x)) {
+    cli::cli_abort("Image name has to be character")
+  }
+}
+
+#' @rdname error_functions
+
+error_path <- function(x) {
+  # if not supplied error
+  if (missing(x) || is.null(x)) {
+    cli::cli_abort("Argument {.var path} is missing or NULL.")
+  }
+  # if not character or length 1 error
+  if (!is.character(x) || length(x) != 1) {
+    cli::cli_abort("`path` needs to be a character and has a length greater 1")
+  }
+  # if path doesn't exist that path exists
+  if (!dir.exists(x)) {
+    cli::cli_abort("Directory {.val {path}} does not exist.")
+  }
+
+  files <- c("vdat.sh", "Fathom_Installer.msi")
+
+  missing <- files[!file.exists(file.path(x, files))]
+
+  if (length(missing))
+
+    cli::cli_abort(c(
+      "Missing file(s) in path {.val {x}}:",
+      paste0("x ", missing, collapse = ", ")
+    ))
+
+}
+
+#' @rdname error_functions
+
+error_args <- function(x) {
+  image_size_types <- c("extract", "run")
+
+  if (!x %in% image_size_types || !is.character(x)) {
+    cli::cli_abort(c(
+      "Invalid image size type.",
+      "x" = "Got: {.val {x}}",
+      "i" = "Valid options are {.val extract} or {.val run}."
+    ))
+
+  }
+}
 #' Methods
 #'
 #' Methods for VDAT responses
