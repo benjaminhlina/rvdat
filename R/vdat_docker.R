@@ -38,29 +38,10 @@ vdat_docker <- function(
   }
   sh_run <- sys::exec_internal(sh_path, sh_arg)
 
-  # ----- git docker image size ====
-  image_name <- "ghcr.io/trackyverse/vdat:latest"
+  # ----- git docker image size ----
 
-  download_size <- image_size(image_name = image_name,
-                              type = "download_size")
+  image_sizez <- image_size()
 
-  uncompressed_size <- image_size(image_name = image_name,
-                                  type = "uncompressed_size")
-
-
-
-  images_sizes <- list(
-    download_size = rawToChar(download_size$stdout),
-    uncompressed_size = rawToChar(uncompressed_size$stdout)
-  )
-
-  images_sizes <- lapply(images_sizes, function(x) {
-    x <- as.numeric(gsub("[^0-9.]", "", x))
-    round(x, 2)
-  }
-  )
-
-  # images_sizes$download_size <- images_sizes$download_size / (1024^2)
   # ---- get sh run output -----
   stderr_text <- rawToChar(sh_run$stderr)
 
