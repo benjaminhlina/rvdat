@@ -86,10 +86,11 @@ error_args <- function(x, valid_args) {
 #' @rdname error_functions
 
 error_image_name <- function(x) {
-  if (!is.character(x)) {
+  if (!is.character(x) & !is.null(x)) {
     cli::cli_abort("Image name has to be character")
   }
 }
+
 
 #' @rdname error_functions
 
