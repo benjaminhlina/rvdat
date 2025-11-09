@@ -64,20 +64,24 @@ error_too_many_files <- function(output_format) {
   )
 }
 
+#' @param x argument
+#' @param vald_args vector of valid arguments
 #' @rdname error_functions
-#'
-error_size_type <- function(x) {
-  image_size_types <- c("download_size", "uncompressed_size")
 
-  if (!x %in% image_size_types || !is.character(x)) {
+error_args <- function(x, valid_args) {
+
+  if (!is.character(x) || !all(x %in% valid_args)) {
     cli::cli_abort(c(
-      "Invalid image size type.",
+      "Invalid argument(s) passed.",
       "x" = "Got: {.val {x}}",
-      "i" = "Valid options are {.val Size} or {.val VirtualSize}."
+      "i" = "Valid options are {.val {valid_args}}."
     ))
 
   }
+
 }
+
+
 
 #' @rdname error_functions
 
@@ -116,20 +120,6 @@ error_path <- function(x) {
 
 }
 
-#' @rdname error_functions
-
-error_args <- function(x) {
-  image_size_types <- c("extract", "run")
-
-  if (!x %in% image_size_types || !is.character(x)) {
-    cli::cli_abort(c(
-      "Invalid image size type.",
-      "x" = "Got: {.val {x}}",
-      "i" = "Valid options are {.val extract} or {.val run}."
-    ))
-
-  }
-}
 #' Methods
 #'
 #' Methods for VDAT responses
