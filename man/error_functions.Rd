@@ -5,10 +5,9 @@
 \alias{error_generic_call}
 \alias{error_file_location}
 \alias{error_too_many_files}
-\alias{error_size_type}
+\alias{error_args}
 \alias{error_image_name}
 \alias{error_path}
-\alias{error_args}
 \title{Error functions}
 \usage{
 error_generic_call(what, error)
@@ -17,16 +16,18 @@ error_file_location(vdata_file, error)
 
 error_too_many_files(output_format)
 
-error_size_type(x)
+error_args(x, valid_args)
 
 error_image_name(x)
 
 error_path(x)
-
-error_args(x)
 }
 \arguments{
 \item{error}{Character. Error from exec_internal(), passed through \code{rawToChar}}
+
+\item{x}{argument}
+
+\item{vald_args}{vector of valid arguments}
 }
 \description{
 Error functions
