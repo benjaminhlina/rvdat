@@ -225,4 +225,30 @@ image_name <- function(image_name = NULL) {
   return(image_name)
 }
 
+#' @keywords internal
+#' @name interact_docker
+
+image_size <- function(image_name = NULL) {
+  image_name <- image_name()
+
+  download_size <- get_image_size(image_name = image_name,
+                                  type = "download_size")
+
+  unpacked_size <- get_image_size(image_name = image_name,
+                                  type = "unpacked_size")
+
+
+
+  image_size <- list(
+    download_size = rawToChar(download_size$stdout),
+    unpacked_size = rawToChar(unpacked_size$stdout)
+  )
+
+  image_size <- lapply(image_size, function(x) {
+    x <- as.numeric(gsub("[^0-9.]", "", x))
+    round(x, 2)
+  }
+  )
+  image_size$download_size <- round(image_size$download_size / (1024 ^ 2), 2)
+  return(image_size)
 
