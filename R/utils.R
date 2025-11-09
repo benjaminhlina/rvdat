@@ -203,7 +203,7 @@ get_image_size <- function(image_name, type) {
                                        "{{.Size}}"))
   }
 
-  if (type %in% "uncompressed_size") {
+  if (type %in% "unpacked_size") {
 
     image_size <- sys::exec_internal("docker",
                                      c("images",
