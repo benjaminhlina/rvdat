@@ -215,4 +215,14 @@ get_image_size <- function(image_name, type) {
   return(image_size)
 }
 
+#' @keywords internal
+#' @name interact_docker
+image_name <- function(image_name = NULL) {
+  error_image_name(image_name)
+  if (is.null(image_name)) {
+    image_name <- "ghcr.io/trackyverse/vdat:latest"
+  }
+  return(image_name)
+}
+
 
