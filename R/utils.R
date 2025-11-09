@@ -142,3 +142,40 @@ print.vdat_resp <- function(x, ...) {
 
   invisible(x)
 }
+
+#' Docker functions
+#'
+#' @param image_name docker image name
+#' @param type is either `{{.Size}}` or `{{.VirtualSize}}`
+#'
+#' @keywords internal
+#' @name interact_docker
+image_size <- function(image_name, type) {
+
+  error_image_name(image_name)
+  error_size_type(type)
+
+  if (type %in% "download_size") {
+
+    image_size <- sys::exec_internal("docker",
+                                     c("image",
+                                       "inspect",
+                                       image_name,
+                                       "--format",
+                                       "{{.Size}}"))
+  }
+
+  if (type %in% "uncompressed_size") {
+
+    image_size <- sys::exec_internal("docker",
+                                     c("images",
+                                       image_name,
+                                       "--format",
+                                       paste("{{.", "Size", "}}", sep = "")
+                                     )
+    )
+  }
+  return(image_size)
+}
+
+
