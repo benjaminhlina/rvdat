@@ -261,3 +261,12 @@ rm_docker_image <- function() {
   x <- sys::exec_internal("docker", c("rmi", image_name()))
   print.vdat_resp(x)
 }
+
+#' Delete `vdat.exe`
+#' @param x `vdat.exe`
+#' @export
+#' @name clean_up
+
+rm_vdat <- function(x) {
+  file.remove("vdat.exe")
+}
