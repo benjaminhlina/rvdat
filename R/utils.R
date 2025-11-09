@@ -209,8 +209,7 @@ get_image_size <- function(image_name, type) {
                                      c("images",
                                        image_name,
                                        "--format",
-                                       paste("{{.", "Size", "}}", sep = "")
-                                     )
+                                       "{{.Size}}")
     )
   }
   return(image_size)
