@@ -16,8 +16,8 @@
 #' @export
 
 vdat_docker <- function(
-    path,
-    args
+  path,
+  args
 ) {
   error_path(path)
   error_args(args, valid_args = c("extract", "run"))
@@ -34,7 +34,7 @@ vdat_docker <- function(
   }
   # ---- run vdat ------
   if (args == "run") {
-    sh_arg <-  " --help"
+    sh_arg <- " --help"
   }
   sh_run <- sys::exec_internal(sh_path, sh_arg)
 
@@ -45,5 +45,3 @@ vdat_docker <- function(
   # ----- print output -----
   print.vdat_docker(x = sh_run, image_size = image_sizez)
 }
-
-

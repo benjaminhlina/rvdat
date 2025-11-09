@@ -26,10 +26,11 @@
 #' }
 #'
 vdat_call <- function(
-    what = "--help",
-    print = TRUE,
-    pass_error = FALSE,
-    ...) {
+  what = "--help",
+  print = TRUE,
+  pass_error = FALSE,
+  ...
+) {
   vdat_loc <- vdat_here()
 
   ## Enter Wine mode if needed

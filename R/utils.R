@@ -69,18 +69,14 @@ error_too_many_files <- function(output_format) {
 #' @rdname error_functions
 
 error_args <- function(x, valid_args) {
-
   if (!is.character(x) || !all(x %in% valid_args)) {
     cli::cli_abort(c(
       "Invalid argument(s) passed.",
       "x" = "Got: {.val {x}}",
       "i" = "Valid options are {.val {valid_args}}."
     ))
-
   }
-
 }
-
 
 
 #' @rdname error_functions
@@ -112,13 +108,12 @@ error_path <- function(x) {
 
   missing_files <- files[!file.exists(file.path(x, files))]
 
-  if (length(missing_files))
-
+  if (length(missing_files)) {
     cli::cli_abort(c(
       "Missing file(s) in path {.val {x}}:",
       paste0("x ", missing_files, collapse = ", ")
     ))
-
+  }
 }
 
 #' Methods
@@ -151,18 +146,19 @@ print.vdat_docker <- function(x, image_size, ...) {
   if (nchar(stderr_text) > 0) {
     cli::cli_h1("Downloading Docker Image")
     cat(cli::col_red(stderr_text), "\n")
-    cli::cli_alert_success(paste("Docker image download size:",
-                                 image_size$download_size,
-                                 "Mb"))
-    cli::cli_alert_success(paste("Docker image unpacked size:",
-                                 image_size$unpacked_size, "Gb"))
-
-
+    cli::cli_alert_success(paste(
+      "Docker image download size:",
+      image_size$download_size,
+      "Mb"
+    ))
+    cli::cli_alert_success(paste(
+      "Docker image unpacked size:",
+      image_size$unpacked_size, "Gb"
+    ))
   }
 
   # Print stdout second, in green
   if (nchar(stdout_text) > 0) {
-
     if (!is.null(args)) {
       if (args == "extract") {
         cli::cli_h1("Extracting vdat.exe")
@@ -189,27 +185,31 @@ print.vdat_docker <- function(x, image_size, ...) {
 #' @name interact_docker
 
 get_image_size <- function(image_name, type) {
-
   error_image_name(image_name)
   error_args(type, valid_args = c("download_size", "unpacked_size"))
 
   if (type %in% "download_size") {
-
-    image_size <- sys::exec_internal("docker",
-                                     c("image",
-                                       "inspect",
-                                       image_name,
-                                       "--format",
-                                       "{{.Size}}"))
+    image_size <- sys::exec_internal(
+      "docker",
+      c(
+        "image",
+        "inspect",
+        image_name,
+        "--format",
+        "{{.Size}}"
+      )
+    )
   }
 
   if (type %in% "unpacked_size") {
-
-    image_size <- sys::exec_internal("docker",
-                                     c("images",
-                                       image_name,
-                                       "--format",
-                                       "{{.Size}}")
+    image_size <- sys::exec_internal(
+      "docker",
+      c(
+        "images",
+        image_name,
+        "--format",
+        "{{.Size}}"
+      )
     )
   }
   return(image_size)
@@ -231,12 +231,15 @@ image_name <- function(image_name = NULL) {
 image_size <- function(image_name = NULL) {
   image_name <- image_name()
 
-  download_size <- get_image_size(image_name = image_name,
-                                  type = "download_size")
+  download_size <- get_image_size(
+    image_name = image_name,
+    type = "download_size"
+  )
 
-  unpacked_size <- get_image_size(image_name = image_name,
-                                  type = "unpacked_size")
-
+  unpacked_size <- get_image_size(
+    image_name = image_name,
+    type = "unpacked_size"
+  )
 
 
   image_size <- list(
@@ -247,9 +250,8 @@ image_size <- function(image_name = NULL) {
   image_size <- lapply(image_size, function(x) {
     x <- as.numeric(gsub("[^0-9.]", "", x))
     round(x, 2)
-  }
-  )
-  image_size$download_size <- round(image_size$download_size / (1024 ^ 2), 2)
+  })
+  image_size$download_size <- round(image_size$download_size / (1024^2), 2)
   return(image_size)
 }
 
@@ -259,7 +261,6 @@ image_size <- function(image_name = NULL) {
 #' @name clean_up
 
 rm_docker_image <- function() {
-
   x <- sys::exec_internal("docker", c("rmi", image_name()))
   print.vdat_resp(x)
 }

@@ -116,8 +116,6 @@ test_that("creates correct messages", {
 })
 
 
-
-
 test_that("errors if multiple files are provided", {
   expect_error(
     vdat_to_json(
@@ -143,8 +141,6 @@ test_that("errors if multiple files are provided", {
 })
 
 
-
-
 test_that("errors if file can't be found", {
   skip_on_cran()
 
@@ -153,7 +149,6 @@ test_that("errors if file can't be found", {
     "Is the location of mising_file correct"
   )
 })
-
 
 
 test_that("warns if filter is provided", {
@@ -220,8 +215,6 @@ test_that("warns if filter is provided", {
 })
 
 
-
-
 test_that("time is corrected", {
   skip_on_cran()
 
@@ -249,8 +242,6 @@ test_that("time is corrected", {
   )
 
 
-
-
   # VR2AR vrl ####
   vdat_to_json(vr2ar, outdir = td, time_corrected = TRUE, quiet = TRUE)
   corrected <- read_in_json(vr2ar)
@@ -261,7 +252,6 @@ test_that("time is corrected", {
   expect_type(
     corrected$correctedTime, "character"
   )
-
 
 
   # VR2Tx vrl ####
@@ -276,8 +266,6 @@ test_that("time is corrected", {
   )
 
 
-
-
   # VR2W 69k vrl ####
   vdat_to_json(vr2w69, outdir = td, time_corrected = TRUE, quiet = TRUE)
   corrected <- read_in_json(vr2w69)
@@ -289,8 +277,6 @@ test_that("time is corrected", {
   expect_type(
     corrected$correctedTime, "character"
   )
-
-
 
 
   # VR2W 180k vrl ####

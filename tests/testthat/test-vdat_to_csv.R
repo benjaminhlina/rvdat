@@ -36,8 +36,6 @@ vr2w180 <- grep(
 )
 
 
-
-
 test_that("creates correct messages", {
   skip_on_cran()
 
@@ -116,8 +114,6 @@ test_that("creates correct messages", {
 })
 
 
-
-
 test_that("errors if multiple files are provided", {
   expect_error(
     vdat_to_csv(
@@ -143,8 +139,6 @@ test_that("errors if multiple files are provided", {
 })
 
 
-
-
 test_that("errors if file can't be found", {
   skip_on_cran()
 
@@ -153,7 +147,6 @@ test_that("errors if file can't be found", {
     "Is the location of mising_file correct"
   )
 })
-
 
 
 test_that("warns if filter is provided", {
@@ -232,8 +225,6 @@ test_that("time is corrected", {
   }
 
 
-
-
   # HR VDAT ####
   vdat_to_csv(hr, outdir = td, time_corrected = TRUE)
   corrected <- read_in(hr)
@@ -255,8 +246,6 @@ test_that("time is corrected", {
     as.numeric(strptime(corrected$V3, format = "%Y-%m-%d %H:%M:%OS")),
     tolerance = 1e-6
   )
-
-
 
 
   # VR2AR vrl ####
@@ -282,7 +271,6 @@ test_that("time is corrected", {
   )
 
 
-
   # VR2Tx vrl ####
   vdat_to_csv(vr2tx, outdir = td, time_corrected = TRUE)
   corrected <- read_in(vr2tx)
@@ -306,8 +294,6 @@ test_that("time is corrected", {
   )
 
 
-
-
   # VR2W 69k vrl ####
   vdat_to_csv(vr2w69, outdir = td, time_corrected = TRUE)
   corrected <- read_in(vr2w69)
@@ -329,8 +315,6 @@ test_that("time is corrected", {
     as.numeric(strptime(corrected$V3, format = "%Y-%m-%d %H:%M:%OS")),
     tolerance = 1e-6
   )
-
-
 
 
   # VR2W 180k vrl ####

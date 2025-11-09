@@ -20,8 +20,6 @@ test_that("example CI skipper works when not on CI.", {
 })
 
 
-
-
 test_that("example RUniverse skipper works on RUniverse.", {
   skip_if(
     is.na(Sys.getenv("MY_UNIVERSE", unset = NA)),
@@ -42,7 +40,6 @@ test_that("example RUniverse skipper works when not on RUniverse.", {
     skip_example_on_runiverse()
   )
 })
-
 
 
 test_that("errors error", {

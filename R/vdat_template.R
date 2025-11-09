@@ -8,9 +8,10 @@
 #' @export
 
 vdat_template <- function(
-    format = "csv.fathom",
-    print = FALSE,
-    ...) {
+  format = "csv.fathom",
+  print = FALSE,
+  ...
+) {
   format <- match.arg(format, "csv.fathom")
 
   shell_out <- vdat_call(
