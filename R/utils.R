@@ -251,4 +251,13 @@ image_size <- function(image_name = NULL) {
   )
   image_size$download_size <- round(image_size$download_size / (1024 ^ 2), 2)
   return(image_size)
+#' Clean up after extracting
+#' Remove ocker images
+#' @export
+#' @name clean_up
 
+rm_docker_image <- function() {
+
+  x <- sys::exec_internal("docker", c("rmi", image_name()))
+  print.vdat_resp(x)
+}
