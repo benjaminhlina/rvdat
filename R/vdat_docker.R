@@ -31,15 +31,12 @@ vdat_docker <- function(
   # ----- run extraction of vdat if needed -----
   if (args == "extract") {
     sh_arg <- paste(path, "Fathom_Installer.msi", sep = "/")
-
-    sh_run <- sys::exec_internal(sh_path, sh_arg)
-
   }
   # ---- run vdat ------
   if (args == "run") {
-    sh_arg <- paste(sh_path, " --help", sep = "")
-    sh_run <- sys::exec_internal(sh_path, " --help")
+    sh_arg <-  " --help"
   }
+  sh_run <- sys::exec_internal(sh_path, sh_arg)
 
   # ----- git docker image size ====
   image_name <- "ghcr.io/trackyverse/vdat:latest"
