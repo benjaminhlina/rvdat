@@ -187,10 +187,11 @@ print.vdat_docker <- function(x, image_size, ...) {
 #'
 #' @keywords internal
 #' @name interact_docker
-image_size <- function(image_name, type) {
+
+get_image_size <- function(image_name, type) {
 
   error_image_name(image_name)
-  error_size_type(type)
+  error_args(type, valid_args = c("download_size", "unpacked_size"))
 
   if (type %in% "download_size") {
 
