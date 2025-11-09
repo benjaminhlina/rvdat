@@ -3,6 +3,7 @@
 export(skip_example_on_ci)
 export(skip_example_on_runiverse)
 export(vdat_call)
+export(vdat_docker)
 export(vdat_here)
 export(vdat_inspect)
 export(vdat_template)
