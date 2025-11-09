@@ -20,7 +20,7 @@ vdat_docker <- function(
     args
 ) {
   error_path(path)
-  error_args(args)
+  error_args(args, valid_args = c("extract", "run"))
 
   # ---- path to shell file -----
   sh_path <- paste(path, "vdat.sh", sep = "/")
