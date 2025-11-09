@@ -2,10 +2,16 @@
 % Please edit documentation in R/utils.R
 \name{interact_docker}
 \alias{interact_docker}
+\alias{get_image_size}
+\alias{image_name}
 \alias{image_size}
 \title{Docker functions}
 \usage{
-image_size(image_name, type)
+get_image_size(image_name, type)
+
+image_name(image_name = NULL)
+
+image_size(image_name = NULL)
 }
 \arguments{
 \item{image_name}{docker image name}
