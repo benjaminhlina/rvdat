@@ -135,6 +135,51 @@ print.vdat_resp <- function(x, ...) {
   invisible(x)
 }
 
+#' @keywords internal
+#' @name sys_outputs
+
+print.vdat_docker <- function(x, image_size, ...) {
+  dots <- list(...)
+  args <- dots$args
+
+  # ---- get sh run output -----
+  stderr_text <- rawToChar(x$stderr)
+
+  stdout_text <- rawToChar(x$stdout)
+
+  # Print stderr first, in red
+  if (nchar(stderr_text) > 0) {
+    cli::cli_h1("Downloading Docker Image")
+    cat(cli::col_red(stderr_text), "\n")
+    cli::cli_alert_success(paste("Docker image download size:",
+                                 image_size$download_size,
+                                 "Mb"))
+    cli::cli_alert_success(paste("Docker image unpacked size:",
+                                 image_size$unpacked_size, "Gb"))
+
+
+  }
+
+  # Print stdout second, in green
+  if (nchar(stdout_text) > 0) {
+
+    if (!is.null(args)) {
+      if (args == "extract") {
+        cli::cli_h1("Extracting vdat.exe")
+      }
+      if (args == "run") {
+        cli::cli_h1("Running vdat.exe")
+      }
+    }
+
+
+    cat(cli::col_green(stdout_text), "\n")
+  }
+
+  # Optional: final separator
+  cli::cli_rule(left = "End of Output")
+}
+
 #' Docker functions
 #'
 #' @param image_name docker image name
