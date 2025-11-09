@@ -19,7 +19,7 @@ environment variable. Only used on Linux or Mac operating systems.}
 Write the location of \code{vdat.exe} to the environmental variables.
 }
 \examples{
-\dontshow{if (all(skip_example_on_ci(), skip_example_on_runiverse())) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (all(skip_example_on_ci(), skip_example_on_runiverse())) withAutoprint(\{ # examplesIf}
 
 # Auto-find vdat:
 vdat_here()

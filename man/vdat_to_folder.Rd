@@ -14,6 +14,6 @@ A wrapper around \code{vdat_to_csv} that just changes \code{folder = FALSE} to
 \code{folder = TRUE}.
 }
 \examples{
-\dontshow{if (all(skip_example_on_ci(), skip_example_on_runiverse())) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (all(skip_example_on_ci(), skip_example_on_runiverse())) withAutoprint(\{ # examplesIf}
 \dontshow{\}) # examplesIf}
 }
