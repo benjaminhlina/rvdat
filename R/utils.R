@@ -126,6 +126,7 @@ error_path <- function(x) {
 #' Methods for VDAT responses
 #'
 #' @keywords internal
+#' @name sys_outputs
 
 print.vdat_resp <- function(x, ...) {
   rawToChar(x$stdout) |>
