@@ -111,6 +111,25 @@ error_file_location <- function(vdata_file, error) {
     )
   )
 }
+
+
+#' @param error Character. Error from exec_internal(), passed through `rawToChar`
+#'
+#' @keywords internal
+#' @name error_functions
+
+error_generic_call <- function(what, error) {
+  cli::cli_abort(
+    c(
+      "x" = "Call to VDAT failed with error:",
+      " " = "{cli::col_red(error)}",
+      "i" = "Is {what} a valid command?"
+    )
+  )
+}
+#' @keywords internal
+#' @rdname error_functions
+
 error_image_name <- function(x) {
   if (!is.character(x) & !is.null(x)) {
     cli::cli_abort("Image name has to be character")
@@ -145,41 +164,19 @@ error_path <- function(x) {
     ))
   }
 }
+
+
 #' @keywords internal
 #' @rdname error_functions
 
-error_docker_install <- function() {
-  if (Sys.which("docker") == "") {
-    # ---- get os and arch -----
-    os <- Sys.info()[["sysname"]]
-    arch <- Sys.info()[["machine"]]
-
-    # ---- docker urls based on platform
-    docker_url <- list(
-      "Darwin" = "https://docs.docker.com/desktop/setup/install/mac-install/",
-      "Linux" = "https://docs.docker.com/engine/install/"
+error_too_many_files <- function(output_format) {
+  cli::cli_abort(
+    c(
+      "x" = "Only one file is allowed at a time.",
+      "i" = "Consider using lapply(vdata_files, {paste0('vdat_to_', output_format)})."
     )
-
-    # ---- select the corect url for the right OS ----
-    url <- docker_url[[os]] %||% "https://docs.docker.com/get-docker/"
-    # ---- switch out Darwin or "MacOS" -----
-    os_corect <- switch(os,
-      "Darwin" = "MacOS",
-      os
-    )
-    # ---- error -----
-    cli::cli_abort(
-      c(
-        "x" = "Docker is not installed or not in PATH",
-        "i" = "Install Docker for {.val {os_corect}} using the following architecture
-      {.val {arch}} at {.url {url}}"
-      )
-    )
-  } else {
-    cli::cli_alert_success("Docker is installed at: {Sys.which('docker')}")
-  }
+  )
 }
-
 
 #' Methods
 #'
