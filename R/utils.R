@@ -121,6 +121,43 @@ error_path <- function(x) {
     ))
   }
 }
+#' @keywords internal
+#' @rdname error_functions
+
+error_docker_install <- function() {
+
+  if (Sys.which("docker") == "") {
+    # ---- get os and arch -----
+    os <- Sys.info()[["sysname"]]
+    arch <- Sys.info()[["machine"]]
+
+    # ---- docker urls based on platform
+    docker_url <- list(
+      "Darwin" = "https://docs.docker.com/desktop/setup/install/mac-install/",
+      "Linux" = "https://docs.docker.com/engine/install/"
+    )
+
+    # ---- select the corect url for the right OS ----
+    url <- docker_url[[os]] %||% "https://docs.docker.com/get-docker/"
+    # ---- switch out Darwin or "MacOS" -----
+    os_corect <- switch(
+      os,
+      "Darwin" = "MacOS",
+      os
+    )
+    # ---- error -----
+    cli::cli_abort(
+      c(
+        "x" = "Docker is not installed or not in PATH",
+        "i" = "Install Docker for {.val {os_corect}} using the following architecture
+      {.val {arch}} at {.url {url}}"
+      )
+    )
+  } else {
+    cli::cli_alert_success("Docker is installed at: {Sys.which('docker')}")
+  }
+}
+
 
 #' Methods
 #'
