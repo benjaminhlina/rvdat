@@ -19,6 +19,10 @@ vdat_docker <- function(
   path,
   args
 ) {
+  # ---- check if docker is installed piror to running -----
+  error_docker_install()
+
+  # ---- check path and args -----
   error_path(path)
   error_args(args, valid_args = c("extract", "run"))
 
