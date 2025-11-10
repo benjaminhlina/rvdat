@@ -41,6 +41,7 @@ error_generic_call <- function(what, error) {
   )
 }
 
+#' @keywords internal
 #' @rdname error_functions
 
 error_file_location <- function(vdata_file, error) {
@@ -53,6 +54,7 @@ error_file_location <- function(vdata_file, error) {
   )
 }
 
+#' @keywords internal
 #' @rdname error_functions
 
 error_too_many_files <- function(output_format) {
@@ -64,8 +66,10 @@ error_too_many_files <- function(output_format) {
   )
 }
 
+
 #' @param x argument
 #' @param vald_args vector of valid arguments
+#' @keywords internal
 #' @rdname error_functions
 
 error_args <- function(x, valid_args) {
@@ -79,6 +83,8 @@ error_args <- function(x, valid_args) {
 }
 
 
+
+#' @keywords internal
 #' @rdname error_functions
 
 error_image_name <- function(x) {
@@ -87,7 +93,7 @@ error_image_name <- function(x) {
   }
 }
 
-
+#' @keywords internal
 #' @rdname error_functions
 
 error_path <- function(x) {
