@@ -343,9 +343,11 @@ start_docker <- function() {
   }
 }
 #' Clean up after extracting
-#' Remove ocker images
+#'
+#' Remove docker image
+#'
 #' @export
-#' @name clean_up
+#' @rdname clean_up
 
 rm_docker_image <- function() {
   x <- sys::exec_internal("docker", c("rmi", image_name()))
@@ -353,7 +355,7 @@ rm_docker_image <- function() {
 }
 
 #' Delete `vdat.exe`
-#' @param x `vdat.exe`
+#' @param x `vdat.exe`x
 #' @export
 #' @name clean_up
 
