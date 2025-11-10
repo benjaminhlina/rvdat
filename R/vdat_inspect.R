@@ -28,43 +28,57 @@ vdat_inspect <- function(vdata_file, ...) {
 
   ## Parse section headers
   ### Find section header indices (rows with >= 12 spaces)
-  section_headers <- metadata |>
+  section_header_indices <- metadata |>
     grepl("\\s{12,}", x = _) |>
     which()
 
-  ### Repeat those indices however many times to match the number of rows
-  ###   in the section
+  ## Parse the metadata
+  ### Grab section headers
   section_headers <- metadata[
-    section_headers[
+    section_header_indices[
       # Repeat the headers however many times
-      findInterval(seq_along(metadata), vec = section_headers)[
-        # But not the headers, themselves
-        -section_headers
-      ]
+      findInterval(seq_along(metadata), vec = section_header_indices)
     ]
   ] |>
     # Remove the spaces
-    gsub("\\s", "", x = _)
-
-  ## Parse the metadata
-  ### Drop section headers by selecting rows that have a ":" or start with
-  ###   11 spaces then a character
-  metadata <- metadata[grepl(":|^\\s{11}[[:alnum:]]", metadata)]
+    gsub("\\s", "", x = _) |>
+    # Drop header rows
+    _[-section_header_indices]
 
   ### Split according to colons followed by multiple spaces.
   metadata <- metadata |>
-    strsplit(":\\s+") |>
-    ### Variables with multiple entries have those entries indented and split
-    ###   into different lines. Split these into two columns according to a
-    ###   space that precedes an alphanumeric character
+    strsplit(":(\\s+|$)") |>
+    ### Variables with multiple entries either have those entries indented and
+    ###   split into different lines OR split into different lines and preceeded
+    ###   with a dash. Split these into two columns according to a space that
+    ###   precedes an alphanumeric character OR a dash that precedes a space.
     lapply(function(.) {
       unlist(
-        strsplit(., "\\s{2,}(?=[[:alpha:]])", perl = T)
+        strsplit(
+          .,
+          "(\\s{2,}(?=[[:alpha:]]))|-\\s|\\s(?=(\\[|\\())",
+          perl = TRUE
+        )
       )
+    })
+
+  ### Now that every section has at least two entries, bind them together
+  metadata <- do.call(rbind, metadata) |>
+    # silence warning associated with rbind auto-filling while letting
+    #   others through
+    withCallingHandlers(warning = function(w) {
+      if (
+        grepl(
+          "number of columns of result is not a multiple of vector length",
+          conditionMessage(w)
+        )
+      ) {
+        invokeRestart("muffleWarning")
+      }
     }) |>
-    ### Now that every section has two entries, bind them together
-    do.call(rbind, args = _) |>
-    data.frame()
+    data.frame() |>
+    ### Remove section headers
+    _[-section_header_indices, ]
 
   ### Fill in blanks using last observation carried forward
   ###   Function adapted (trimmed down) from:
@@ -75,17 +89,35 @@ vdat_inspect <- function(vdata_file, ...) {
     x[which(isnotblank)][cumsum(isnotblank)]
   }
 
-  metadata$X1 <- locf(metadata$X1)
+  ### Rename
+  names(metadata) <- c("variable", "subvariable", "value")
+
+  metadata$variable <- locf(metadata$variable)
 
   ### Add back section headers
   metadata$section <- section_headers
 
   ### Remove redundant variables
-  metadata <- metadata[metadata$X1 != metadata$X2, ]
+  metadata <- metadata[metadata$variable != metadata$subvariable, ]
+  rownames(metadata) <- NULL
 
-  ### Rename
-  names(metadata) <- c("variable", "value", "section")
+  ### Reorganize values
+  metadata$value <- ifelse(
+    metadata$variable == metadata$value,
+    metadata$subvariable,
+    metadata$value
+  )
+  metadata$subvariable <- ifelse(
+    metadata$subvariable == metadata$value,
+    NA,
+    metadata$subvariable
+  )
 
+  ### Convert NA in value column
+  metadata[metadata$value == "N/A", "value"] <- NA
+
+  ### Drop parentheses
+  metadata$value <- gsub("\\]|\\[|\\(|\\)", "", metadata$value)
 
   invisible(metadata)
 }

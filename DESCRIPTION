@@ -1,9 +1,10 @@
 Package: rvdat
 Title: Lightweight Access to 'VDAT' Shell Commands
-Version: 0.3.0
+Version: 0.3.1
 Authors@R: c(
     person("Michael", "O'Brien", , "mike@obrien.page", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0003-1420-6395"))
+           comment = c(ORCID = "0000-0003-1420-6395")),
+    person("Benjamin L.", "Hlina", , "benjamin.hlina@gmail.com", role = "ctb")
   )
 Description: Provides lightweight, R-friendly syntax for 'VDAT' shell functions.
 License: AGPL (>= 3)

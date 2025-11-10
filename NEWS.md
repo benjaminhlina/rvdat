@@ -1,3 +1,8 @@
+# rvdat 0.3.1
+
+  - Fix by @benjaminhlina ([#22](https://github.com/mhpob/rvdat/pull/22) to properly parse standard files.
+  - Parse subsections designated by dashes ([#24](https://github.com/mhpob/rvdat/pull/24))
+
 # rvdat 0.3.0
 
   - **BREAKING CHANGE**: `rvdat` now looks for an environmental variable of

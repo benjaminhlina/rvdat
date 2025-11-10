@@ -13,6 +13,9 @@ test_that("vdat_inspect outputs to console", {
   )
 
   # VR2AR vrl
+  # use to error related to issue #18 -
+  # pr vdat_inspect-patch-vr2ar-vrl fixes
+  # BH - 20 - aug -2025
   expect_output(
     vdat_inspect(
       grep(
@@ -75,6 +78,9 @@ test_that("vdat_inspect invisibly returns a data frame", {
   expect_s3_class(hr, "data.frame")
 
   # VR2AR vrl
+  # use to error related to issue #18 -
+  # pr vdat_inspect-patch-vr2ar-vrl fixes
+  # BH - 20 - aug -2025
   vr2ar <- expect_invisible(
     vdat_inspect(
       grep(
