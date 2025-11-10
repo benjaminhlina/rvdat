@@ -125,7 +125,6 @@ error_path <- function(x) {
 #' @rdname error_functions
 
 error_docker_install <- function() {
-
   if (Sys.which("docker") == "") {
     # ---- get os and arch -----
     os <- Sys.info()[["sysname"]]
@@ -140,8 +139,7 @@ error_docker_install <- function() {
     # ---- select the corect url for the right OS ----
     url <- docker_url[[os]] %||% "https://docs.docker.com/get-docker/"
     # ---- switch out Darwin or "MacOS" -----
-    os_corect <- switch(
-      os,
+    os_corect <- switch(os,
       "Darwin" = "MacOS",
       os
     )

@@ -38,7 +38,7 @@ vdat_docker <- function(
   }
   # ---- run vdat ------
   if (args == "run") {
-    sh_arg <-  " --help-all"
+    sh_arg <- " --help-all"
   }
   sh_run <- sys::exec_internal(sh_path, sh_arg)
 
