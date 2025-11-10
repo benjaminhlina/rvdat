@@ -153,7 +153,9 @@ error_path <- function(x) {
 
   files <- c("vdat.sh", "Fathom_Installer.msi")
 
-  missing_files <- files[!file.exists(file.path(x, files))]
+  file_paths <- normalizePath(file.path(x, files), mustWork = FALSE)
+
+  missing_files <- files[!file.exists(file_paths)]
 
   if (length(missing_files)) {
     cli::cli_abort(c(
