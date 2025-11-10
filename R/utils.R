@@ -316,6 +316,35 @@ image_size <- function(image_name = NULL) {
   return(image_size)
 }
 
+
+#' @name interact_docker
+#' @export
+
+start_docker <- function() {
+
+  # ----- run docker info
+  docker_info <- sys::exec_internal("docker", "info", error = FALSE)
+  # ---- grab error
+  std_error <-  rawToChar(docker_info$stderr)
+  # ---- grab is docker running
+  running <- sub(".*\\.\\s*(.*)$", "\\1", std_error) |>
+    trimws()
+  # if it isn't run depending on OS start application
+  if (running == "Is the docker daemon running?") {
+
+    os <- Sys.info()[["sysname"]]
+
+    if (os == "Darwin") {
+      sys::exec_internal("open", c("-a", "docker"))
+    }
+    if (os == "Linux") {
+      sys::exec_internal("systemctl", c("--user",
+                                        "start",
+                                        "docker-desktop")
+      )
+    }
+  }
+}
 #' Clean up after extracting
 #' Remove ocker images
 #' @export
