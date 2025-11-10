@@ -19,7 +19,7 @@ start_docker()
 \arguments{
 \item{image_name}{docker image name}
 
-\item{type}{is either \code{{{.Size}}} or \code{{{.VirtualSize}}}}
+\item{type}{is either \code{"download_size"} or \code{"unpacked_size"}.}
 }
 \description{
 Interact with Docker functions

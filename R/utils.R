@@ -239,7 +239,7 @@ print.vdat_resp <- function(x, ...) {
 #' Interact with Docker functions
 #'
 #' @param image_name docker image name
-#' @param type is either `{{.Size}}` or `{{.VirtualSize}}`
+#' @param type is either `"download_size"` or `"unpacked_size"`.
 #'
 #' @keywords internal
 #' @name interact_docker
