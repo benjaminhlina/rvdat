@@ -78,6 +78,39 @@ error_docker_install <- function() {
 #' @keywords internal
 #' @rdname error_functions
 
+error_docker_start <- function() {
+
+  # ----- run docker info
+  docker_info <- sys::exec_internal("docker", "info", error = FALSE)
+  # ---- grab error
+  std_error <-  rawToChar(docker_info$stderr)
+  # ---- grab is docker running
+  running <- sub(".*\\.\\s*(.*)$", "\\1", std_error) |>
+    trimws()
+  # if it isn't run depending on OS start application
+  if (running == "Is the docker daemon running?") {
+    cli::cli_abort(
+      c(
+        "x" = "Docker is not running",
+        "i" = "Starting {.fun {start_docker()}} Docker Desktop. Please wait till
+        window appear. Docker can run in the background."
+      )
+    )
+  }
+}
+
+#' @keywords internal
+#' @rdname error_functions
+
+error_file_location <- function(vdata_file, error) {
+  cli::cli_abort(
+    c(
+      "x" = "Call to VDAT failed with error:",
+      " " = "{cli::col_red(error)}",
+      "i" = "Is the location of {vdata_file} correct?"
+    )
+  )
+}
 error_image_name <- function(x) {
   if (!is.character(x) & !is.null(x)) {
     cli::cli_abort("Image name has to be character")
