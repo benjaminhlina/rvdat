@@ -237,7 +237,7 @@ print.vdat_resp <- function(x, ...) {
 
   invisible(x)
 }
-#' Docker functions
+#' Interact with Docker functions
 #'
 #' @param image_name docker image name
 #' @param type is either `{{.Size}}` or `{{.VirtualSize}}`
