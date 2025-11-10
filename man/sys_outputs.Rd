@@ -2,13 +2,13 @@
 % Please edit documentation in R/utils.R
 \name{sys_outputs}
 \alias{sys_outputs}
-\alias{print.vdat_resp}
 \alias{print.vdat_docker}
+\alias{print.vdat_resp}
 \title{Methods}
 \usage{
-\method{print}{vdat_resp}(x, ...)
-
 \method{print}{vdat_docker}(x, image_size, ...)
+
+\method{print}{vdat_resp}(x, ...)
 }
 \description{
 Methods for VDAT responses

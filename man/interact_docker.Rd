@@ -5,13 +5,16 @@
 \alias{get_image_size}
 \alias{image_name}
 \alias{image_size}
-\title{Docker functions}
+\alias{start_docker}
+\title{Interact with Docker functions}
 \usage{
 get_image_size(image_name, type)
 
 image_name(image_name = NULL)
 
 image_size(image_name = NULL)
+
+start_docker()
 }
 \arguments{
 \item{image_name}{docker image name}
@@ -19,6 +22,6 @@ image_size(image_name = NULL)
 \item{type}{is either \code{{{.Size}}} or \code{{{.VirtualSize}}}}
 }
 \description{
-Docker functions
+Interact with Docker functions
 }
 \keyword{internal}
