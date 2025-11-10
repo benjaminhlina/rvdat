@@ -47,7 +47,7 @@ error_args <- function(x, valid_args) {
 
 error_docker_install <- function() {
   if (Sys.which("docker") == "") {
-    # ---- get os and arch -----
+    # ---- get os and arch
     os <- Sys.info()[["sysname"]]
     arch <- Sys.info()[["machine"]]
 
@@ -57,14 +57,14 @@ error_docker_install <- function() {
       "Linux" = "https://docs.docker.com/engine/install/"
     )
 
-    # ---- select the corect url for the right OS ----
+    # ---- select the corect url for the right OS
     url <- docker_url[[os]] %||% "https://docs.docker.com/get-docker/"
-    # ---- switch out Darwin or "MacOS" -----
+    # ---- switch out Darwin or "MacOS"
     os_corect <- switch(os,
-      "Darwin" = "MacOS",
-      os
+                        "Darwin" = "MacOS",
+                        os
     )
-    # ---- error -----
+    # ---- error
     cli::cli_abort(
       c(
         "x" = "Docker is not installed or not in PATH",
@@ -159,7 +159,7 @@ print.vdat_docker <- function(x, image_size, ...) {
   dots <- list(...)
   args <- dots$args
 
-  # ---- get sh run output -----
+  # ---- get sh run output
   stderr_text <- rawToChar(x$stderr)
 
   stdout_text <- rawToChar(x$stdout)
