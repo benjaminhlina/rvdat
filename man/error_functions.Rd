@@ -8,6 +8,7 @@
 \alias{error_args}
 \alias{error_image_name}
 \alias{error_path}
+\alias{error_docker_install}
 \title{Error functions}
 \usage{
 error_generic_call(what, error)
@@ -21,6 +22,8 @@ error_args(x, valid_args)
 error_image_name(x)
 
 error_path(x)
+
+error_docker_install()
 }
 \arguments{
 \item{error}{Character. Error from exec_internal(), passed through \code{rawToChar}}
