@@ -11,8 +11,8 @@ rm_docker_image()
 rm_vdat(x)
 }
 \arguments{
-\item{x}{\code{vdat.exe}x}
+\item{x}{\code{vdat.exe}}
 }
 \description{
-Remove docker image
+Remove docker image or \code{vdat.exe}
 }

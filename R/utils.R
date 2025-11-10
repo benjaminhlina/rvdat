@@ -344,7 +344,7 @@ start_docker <- function() {
 }
 #' Clean up after extracting
 #'
-#' Remove docker image
+#' Remove docker image or `vdat.exe`
 #'
 #' @export
 #' @rdname clean_up
@@ -354,8 +354,8 @@ rm_docker_image <- function() {
   print.vdat_resp(x)
 }
 
-#' Delete `vdat.exe`
-#' @param x `vdat.exe`x
+
+#' @param x `vdat.exe`
 #' @export
 #' @name clean_up
 
