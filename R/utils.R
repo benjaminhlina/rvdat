@@ -82,7 +82,40 @@ error_args <- function(x, valid_args) {
   }
 }
 
+#' @keywords internal
+#' @rdname error_functions
 
+error_docker_install <- function() {
+
+  if (Sys.which("docker") == "") {
+    # ---- get os and arch -----
+    os <- Sys.info()[["sysname"]]
+    arch <- Sys.info()[["machine"]]
+
+    # ---- docker urls based on platform
+    docker_url <- list(
+      "Darwin" = "https://docs.docker.com/desktop/setup/install/mac-install/",
+      "Linux" = "https://docs.docker.com/engine/install/"
+    )
+
+    # ---- select the corect url for the right OS ----
+    url <- docker_url[[os]] %||% "https://docs.docker.com/get-docker/"
+    # ---- switch out Darwin or "MacOS" -----
+    os_corect <- switch(
+      os,
+      "Darwin" = "MacOS",
+      os
+    )
+    # ---- error -----
+    cli::cli_abort(
+      c(
+        "x" = "Docker is not installed or not in PATH",
+        "i" = "Install Docker for {.val {os_corect}} using the following architecture
+      {.val {arch}} at {.url {url}}"
+      )
+    )
+  }
+}
 
 #' @keywords internal
 #' @rdname error_functions
@@ -164,16 +197,6 @@ error_docker_install <- function() {
 #' @keywords internal
 #' @name sys_outputs
 
-print.vdat_resp <- function(x, ...) {
-  rawToChar(x$stdout) |>
-    cat()
-
-  invisible(x)
-}
-
-#' @keywords internal
-#' @name sys_outputs
-
 print.vdat_docker <- function(x, image_size, ...) {
   dots <- list(...)
   args <- dots$args
@@ -217,6 +240,15 @@ print.vdat_docker <- function(x, image_size, ...) {
   cli::cli_rule(left = "End of Output")
 }
 
+#' @keywords internal
+#' @name sys_outputs
+
+print.vdat_resp <- function(x, ...) {
+  rawToChar(x$stdout) |>
+    cat()
+
+  invisible(x)
+}
 #' Docker functions
 #'
 #' @param image_name docker image name
