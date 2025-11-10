@@ -91,8 +91,7 @@ error_docker_start <- function() {
     cli::cli_abort(
       c(
         "x" = "Docker is not running",
-        "i" = "Starting {.fun {start_docker()}} Docker Desktop. Please wait till
-        window appear. Docker can run in the background."
+        "i" = "Please start Docker."
       )
     )
   }
