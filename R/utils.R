@@ -159,7 +159,7 @@ error_path <- function(x) {
 
   if (length(missing_files)) {
     cli::cli_abort(c(
-      "Missing file(s) in path {.val {x}}:",
+      "Missing file(s) in path {.path {x}}:",
       paste0("x ", missing_files, collapse = ", ")
     ))
   }
