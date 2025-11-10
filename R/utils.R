@@ -318,7 +318,6 @@ image_size <- function(image_name = NULL) {
 
 
 #' @name interact_docker
-#' @export
 
 start_docker <- function() {
 
