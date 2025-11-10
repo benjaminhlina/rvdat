@@ -26,49 +26,9 @@ skip_example_on_runiverse <- function() {
 
 #' Error functions
 #'
-#' @param error Character. Error from exec_internal(), passed through `rawToChar`
-#'
-#' @keywords internal
-#' @name error_functions
-
-error_generic_call <- function(what, error) {
-  cli::cli_abort(
-    c(
-      "x" = "Call to VDAT failed with error:",
-      " " = "{cli::col_red(error)}",
-      "i" = "Is {what} a valid command?"
-    )
-  )
-}
-
-#' @keywords internal
-#' @rdname error_functions
-
-error_file_location <- function(vdata_file, error) {
-  cli::cli_abort(
-    c(
-      "x" = "Call to VDAT failed with error:",
-      " " = "{cli::col_red(error)}",
-      "i" = "Is the location of {vdata_file} correct?"
-    )
-  )
-}
-
-#' @keywords internal
-#' @rdname error_functions
-
-error_too_many_files <- function(output_format) {
-  cli::cli_abort(
-    c(
-      "x" = "Only one file is allowed at a time.",
-      "i" = "Consider using lapply(vdata_files, {paste0('vdat_to_', output_format)})."
-    )
-  )
-}
-
-
 #' @param x argument
 #' @param vald_args vector of valid arguments
+#'
 #' @keywords internal
 #' @rdname error_functions
 
