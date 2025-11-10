@@ -27,14 +27,16 @@ vdat_docker <- function(
   error_args(args, valid_args = c("extract", "run"))
 
   # ---- path to shell file -----
-  sh_path <- paste(path, "vdat.sh", sep = "/")
+  sh_path <- file.path(path, "vdat.sh") |>
+    normalizePath()
 
   # ---- make it excutable -----
   sys::exec_internal("chmod", c("+x", sh_path))
 
   # ----- run extraction of vdat if needed -----
   if (args == "extract") {
-    sh_arg <- paste(path, "Fathom_Installer.msi", sep = "/")
+    sh_arg <- file.path(path, "Fathom_Installer.msi") |>
+      normalizePath()
   }
   # ---- run vdat ------
   if (args == "run") {
